@@ -8,28 +8,28 @@ class procedencia(models.Model):
     descrip_larga = models.CharField(max_length=50)    
     cod_proced_superior = models.IntegerField(null=True, blank=True)
     def __str__(self):
-        fila = "- Descripcion:" + str(self.descrip_corta)
+        fila =  str(self.descrip_corta)
         return fila
     
 class tipo_requerimiento(models.Model):
     id = models.AutoField(primary_key=True)
     descrip_corta = models.CharField(max_length=50)    
     def __str__(self):
-        fila = "- Descripcion:" + str(self.descrip_corta)
+        fila =  str(self.descrip_corta)
         return fila
     
 class categoria_req(models.Model):
     id = models.AutoField(primary_key=True)
     descrip_corta = models.CharField(max_length=50)
     def __str__(self):
-        fila = "- Descripcion:" + str(self.descrip_corta)
+        fila = str(self.descrip_corta)
         return fila
     
 class estado_req(models.Model):
     id = models.AutoField(primary_key=True)
     descrip_corta = models.CharField(max_length=50)
     def __str__(self):
-        fila =  "- Descripcion:" + str(self.descrip_corta)
+        fila = str(self.descrip_corta)
         return fila   
     
 class Requerimientos(models.Model):

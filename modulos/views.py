@@ -68,3 +68,9 @@ def req_create_bd(request):
     requerimiento.save()
     Req = Requerimientos.objects.all
     return render(request, 'requerimientos/req_gen.html', {'Req'  : Req })
+
+def req_delete(request, id):
+    Req = Requerimientos.objects.get(id=id)
+    Req.delete()
+    Req = Requerimientos.objects.all
+    return render(request, 'requerimientos/req_gen.html', {'Req'  : Req })

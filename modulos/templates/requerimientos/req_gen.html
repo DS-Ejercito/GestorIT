@@ -35,7 +35,7 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Registro de Movimientos</h3>
+            <h3 class="card-title">Registro de Requerimientos</h3>
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                 <i class="fas fa-minus"></i>
@@ -50,25 +50,27 @@
                 <thead>
                     <tr>
                         <th>No.</th>
+                        <th>Proc.</th>
                         <th>Exp</th>
                         <th>Descripcion</th>
-                        <th>Fecha</th>
                         <th>Fecha Fin</th>
                         <th>Resp.</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                   {% for Req in Req %}
                   <tr>
-                    <td>1</td>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{Req.cod_proc}}</td>
                     <td>{{Req.num_exp}}</td>
                     <td>{{Req.descrip_corta}}</td>
-                    <td>{{Req.fch_rec}}</td>
-                    <td>{{Req.fch_fin}}</td>
+                    <td>{{Req.fch_rec|date:"d-m-Y"}}</td>
                     <td>{{Req.respo_ejec}}</td>
+                    <td>{{Req.cod_est_req}}</td>
                     <td><a name="" id="" class="btn btn-info btn-sm" href="" role="button"><i class="bi bi-pencil-square"></i></a>
-                      <a name="" id="" class="btn btn-danger btn-sm" href="" role="button"><i class="fas fa-trash-alt"></i>
+                      <a name="" id="" class="btn btn-danger btn-sm" href="{% url 'req_delete' Req.id %}" role="button"><i class="fas fa-trash-alt"></i>
                       </a></td>
                   </tr>
                   {% endfor %}
