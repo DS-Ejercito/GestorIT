@@ -10,6 +10,8 @@ from datetime import date
 from django.utils import timezone
 from django.db.models import Sum
 from django.db.models.functions import ExtractYear, ExtractMonth
+import mimetypes
+import os
 
 # Create your views here.
 def inicio(request):
@@ -66,11 +68,41 @@ def req_create_bd(request):
                                     img_req = img_req,
                                     img_resol = img_resol)
     requerimiento.save()
-    Req = Requerimientos.objects.all
+    Req = Requerimientos.objects.all()
     return render(request, 'requerimientos/req_gen.html', {'Req'  : Req })
 
 def req_delete(request, id):
     Req = Requerimientos.objects.get(id=id)
     Req.delete()
-    Req = Requerimientos.objects.all
+    Req = Requerimientos.objects.all()
     return render(request, 'requerimientos/req_gen.html', {'Req'  : Req })
+
+def req_update(request, id):
+    Req1 = Requerimientos.objects.get(id=id)
+    Req = Requerimientos.objects.all()
+    tipos_requerimiento = tipo_requerimiento.objects.all()
+    procedencias = procedencia.objects.all()
+    categorias_req = categoria_req.objects.all()
+    estados_req = estado_req.objects.all()
+    
+    context = {
+        'tipos_requerimiento': tipos_requerimiento,
+        'procedencias': procedencias,
+        'categorias_req': categorias_req,
+        'estados_req': estados_req,
+         'Req1' : Req1
+
+    }
+    print(Req1.cod_tp_req)
+    return render(request, 'requerimientos/req_update.html', context)
+
+def descargar_archivo(request): 
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) 
+    filename = 'Informe_Resolucion_de_Ampliacion_de_Entrega.doc'
+    filepath = BASE_DIR + '\\Req_Rec\\' + filename 
+    path = open(filepath, 'r') 
+    mime_type, _ = mimetypes.guess_type(filepath)
+    response = HttpResponse(path, content_type = mime_type)
+    response['Content-Disposition'] = f"attachment; filename={filename}"
+    print(filepath)
+    return filepath

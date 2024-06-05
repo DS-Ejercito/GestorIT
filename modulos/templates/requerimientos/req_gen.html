@@ -67,9 +67,9 @@
                     <td>{{Req.num_exp}}</td>
                     <td>{{Req.descrip_corta}}</td>
                     <td>{{Req.fch_rec|date:"d-m-Y"}}</td>
-                    <td>{{Req.respo_ejec}}</td>
+                    <td><a href="{{Req.img_req.url}} ">descarga</a></td>
                     <td>{{Req.cod_est_req}}</td>
-                    <td><a name="" id="" class="btn btn-info btn-sm" href="" role="button"><i class="bi bi-pencil-square"></i></a>
+                    <td><a name="" id="" class="btn btn-info btn-sm" href="{% url 'req_update' Req.id %}" role="button"><i class="bi bi-pencil-square"></i></a>
                       <a name="" id="" class="btn btn-danger btn-sm" href="{% url 'req_delete' Req.id %}" role="button"><i class="fas fa-trash-alt"></i>
                       </a></td>
                   </tr>
