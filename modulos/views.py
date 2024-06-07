@@ -75,11 +75,12 @@ def req_update_bd(request, id):
     Req.respo_rec = request.POST['respo_rec']
     Req.fch_rec = request.POST['fch_rec']
     Req.fch_fin = fch_fin
-    respo_ejec = request.POST['respo_ejec']
+    Req.respo_ejec = request.POST['respo_ejec']
     Req.cod_tp_req = tipo_requerimiento.objects.get(id= request.POST['cod_tp_req'])
     Req.cod_proc = procedencia.objects.get(id=request.POST['cod_proc'])
     Req.cod_cat_req = categoria_req.objects.get(id=request.POST['cod_cat_req'])
     Req.cod_est_req = estado_req.objects.get(id=request.POST['cod_est_req'])
+    # Agregar que si no ingresa una imagen nueva no la actualice
     Req.img_req = request.FILES.get('img_req')
     Req.img_resol = request.FILES.get('img_resol')
     Req.save()
