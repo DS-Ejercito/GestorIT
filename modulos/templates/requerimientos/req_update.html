@@ -54,7 +54,7 @@
                 </div>
                 <label for="num_exp""  class=" col-2 col-form-label">Exp.</label>
                 <div class="col-4">
-                  <input type="text" class="form-control" id="num_exp" name="num_exp" value="{{ Req1.num_exp}}"
+                  <input type="text" class="form-control" id="num_exp" name="num_exp" placeholder="Num. de Exp." value="{{ Req1.num_exp}}"
                     maxlength="50">
                 </div>
               </div>
@@ -90,7 +90,7 @@
                   <div class="form-group">
                     <label for="descrip_corta">Descripción Corta</label>
                     <input type="text" class="form-control" id="descrip_corta" name="descrip_corta"
-                      value="{{ Req1.descrip_corta}}" maxlength="50" required>
+                      value="{{ Req1.descrip_corta}}" maxlength="50" placeholder="Resumen" required>
                   </div>
                 </div>
               </div>
@@ -99,7 +99,7 @@
                   <div class="form-group">
                     <label for="descrip_larga">Descripción Larga</label>
                     <textarea class="form-control" id="descrip_larga" name="descrip_larga" rows="2" maxlength="50"
-                      required>{{ Req1.descrip_larga }}</textarea>
+                    placeholder="Descripcion Completa del Requerimiento" required>{{ Req1.descrip_larga }}</textarea>
                   </div>
                 </div>
               </div>
@@ -108,7 +108,7 @@
                   <div class="form-group">
                     <label for="respo_ejec">Responsable de recepción</label>
                     <input type="text" class="form-control" id="respo_rec" name="respo_rec" maxlength="50"
-                      value="{{ Req1.respo_rec}}" required>
+                      value="{{ Req1.respo_rec}}" placeholder="Responsable de la Recepcion del Req." required>
                   </div>
                 </div>
               </div>
@@ -119,7 +119,7 @@
                       <label for="exampleInputFile">Imagen del Requerimiento</label>
                       <div class="input-group">
                         <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="img_req" name="img_req">
+                          <input type="file" class="custom-file-input" id="img_req" name="img_req" accept="application/pdf">
                           <label class="custom-file-label" for="img_req">{{Req1.img_req.name}}</label>
                         </div>
                       </div>
@@ -143,7 +143,7 @@
                   <div class="form-group">
                     <label for="respo_ejec">Responsable de Ejecución</label>
                     <input type="text" class="form-control" id="respo_ejec" name="respo_ejec"
-                      value="{{ Req1.respo_ejec}}" maxlength="50">
+                      value="{{ Req1.respo_ejec}}"  placeholder="Responsable de realizar el Requerimiento" maxlength="50">
                   </div>
                 </div>
                 <div class="col-6">
@@ -166,7 +166,7 @@
                   <div class="form-group">
                     <label for="descrip_resol">Descripción de Resolución</label>
                     <textarea class="form-control" id="descrip_resol" name="descrip_resol" rows="2"
-                      maxlength="50"> {{Req1.descrip_resol}}</textarea>
+                      maxlength="50" placeholder="Conclusion del Requerimiento"> {{Req1.descrip_resol}}</textarea>
                   </div>
                 </div>
               </div>
@@ -177,7 +177,7 @@
                       <label for="exampleInputFile">Imagen de la Resolución</label>
                       <div class="input-group">
                         <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="img_resol" name="img_resol">
+                          <input type="file" class="custom-file-input" id="img_resol" name="img_resol" accept="application/pdf">
                           <label class="custom-file-label" for="img_resol">{{Req1.img_resol.name}}</label>
                         </div>
                       </div>
@@ -198,7 +198,6 @@
               </div>
               <div class="row">
                 <div class="col-2">
-                  <label for="">Imagen</label>
                   <button class="btn btn-default btn-block">
                     <i class=" bi-arrow-left"></i>
                     <a href="{% url 'requerimientos' %}" >Regresar</a>

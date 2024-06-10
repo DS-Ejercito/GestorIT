@@ -49,7 +49,7 @@
                 </div>
                 <label for="num_exp""  class=" col-2 col-form-label">Exp.</label>
                 <div class="col-4">
-                  <input type="text" class="form-control" id="num_exp" name="num_exp" required maxlength="50">
+                  <input type="text" class="form-control" id="num_exp" name="num_exp" required maxlength="50" placeholder="Num. de Exp.">
                 </div>
               </div>
               <br>
@@ -77,7 +77,7 @@
                 <div class="col-12">
                   <div class="form-group">
                     <label for="descrip_corta">Descripción Corta</label>
-                    <input type="text" class="form-control" id="descrip_corta" name="descrip_corta" maxlength="50"
+                    <input type="text" class="form-control" id="descrip_corta" name="descrip_corta" maxlength="50" placeholder="Resumen"
                       required>
                   </div>
                 </div>
@@ -86,8 +86,7 @@
                 <div class="col-12">
                   <div class="form-group">
                     <label for="descrip_larga">Descripción Larga</label>
-                    <textarea class="form-control" id="descrip_larga" name="descrip_larga" rows="2" maxlength="50"
-                      required></textarea>
+                    <textarea class="form-control" id="descrip_larga" name="descrip_larga" rows="2" placeholder="Descripcion Completa del Requerimiento" required></textarea>
                   </div>
                 </div>
               </div>
@@ -95,7 +94,7 @@
                 <div class="col-12">
                   <div class="form-group">
                     <label for="respo_ejec">Responsable de recepción</label>
-                    <input type="text" class="form-control" id="respo_rec" name="respo_rec" maxlength="50" required>
+                    <input type="text" class="form-control" id="respo_rec" name="respo_rec" maxlength="50" placeholder="Responsable de la Recepcion del Req." required>
                   </div>
                 </div>
               </div>
@@ -106,7 +105,7 @@
                       <label for="exampleInputFile">Imagen del Requerimiento</label>
                       <div class="input-group">
                         <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="img_req" name="img_req">
+                          <input type="file" class="custom-file-input" id="img_req" name="img_req" accept="application/pdf">
                           <label class="custom-file-label" for="img_req"></label>
                         </div>
                       </div>
@@ -118,7 +117,7 @@
                 <div class="col-6">
                   <div class="form-group">
                     <label for="respo_ejec">Responsable de Ejecución</label>
-                    <input type="text" class="form-control" id="respo_ejec" name="respo_ejec" value="" maxlength="50">
+                    <input type="text" class="form-control" id="respo_ejec" name="respo_ejec" placeholder="Responsable de realizar el Requerimiento" value="">
                   </div>
                 </div>
                 <div class="col-6">
@@ -138,7 +137,7 @@
                   <div class="form-group">
                     <label for="descrip_resol">Descripción de Resolución</label>
                     <textarea class="form-control" id="descrip_resol" name="descrip_resol" rows="2"
-                      maxlength="50"></textarea>
+                      maxlength="50" placeholder="Conclusion del Requerimiento"></textarea>
                   </div>
                 </div>
               </div>
@@ -149,7 +148,7 @@
                       <label for="exampleInputFile">Imagen de la Resolución</label>
                       <div class="input-group">
                         <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="img_resol" name="img_resol">
+                          <input type="file" class="custom-file-input" id="img_resol" name="img_resol" accept="application/pdf">
                           <label class="custom-file-label" for="img_resol"></label>
                         </div>
                       </div>
@@ -158,7 +157,13 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-10">
+                <div class="col-2">
+                  <button class="btn btn-default btn-block">
+                    <i class=" bi-arrow-left"></i>
+                    <a href="{% url 'requerimientos' %}" >Regresar</a>
+                  </button>
+                </div>
+                <div class="col-8">
                 </div>
                 <div class="col-2">
                   <button type="submit" class="btn btn-default btn-block">
