@@ -1,0 +1,60 @@
+<form action="/cierre_diario_create/" enctype="multipart/form-data" method="post">
+  {% csrf_token %} 
+  <div class="row">
+    <div class="col-6">
+      <label for="txt_compras" class="form-label">Disp. Compras:</label>
+      <input type="text" class="form-control" id="txt_compras" placeholder="L 10,000.00" disabled required>
+    </div>
+    <div class="col-6">
+      <label for="txt_fondo" class="form-label">Disp. Fondo:</label>
+      <input type="text" class="form-control" id="txt_fondo" placeholder="L 5,250.00" disabled required>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-6">
+        <label for="txtfecha" class="form-label">Fecha:</label>
+        <input type="date" class="form-control" id="txtfecha" name="txtfecha" placeholder="Fecha" required>
+      </div>
+      <div class="col-6">
+        <label for="txtIng_efectivo" class="form-label">Efectivo:</label>
+        <input type="number" step="0.01" class="form-control" id="txtIng_efectivo" name="txtIng_efectivo" placeholder="Ingresa el monto"  required>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-6">
+        <label for="txtIng_transferencia" class="form-label">Transferencia:</label>
+        <input type="number" step="0.01" class="form-control" id="txtIng_transferencia" name="txtIng_transferencia" placeholder="Ingresa el monto"  required>
+      </div>
+      <div class="col-6">
+        <label for="txtIng_POS" class="form-label">POS:</label>
+        <input type="number" step="0.01" class="form-control" id="txtIng_POS" name="txtIng_POS" placeholder="Ingresa el monto"  required>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-6">
+        <label for="txtIng_fondo" class="form-label">Fondo:</label>
+        <input type="number" step="0.01" class="form-control" id="txtIng_fondo" name="txtIng_fondo" placeholder="Ingresa el monto"  required>
+      </div>
+      <div class="col-6">
+        <label for="txtIng_abono" class="form-label">Abono:</label>
+        <input type="number" step="0.01" class="form-control" id="txtIng_abono" name="txtIng_abono" placeholder="Ingresa el monto"  required>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-10">
+    </div>
+    <div class="col-2">
+      <button type="submit" class="btn btn-default btn-block">
+        <i class="bi bi-cash-stack"></i>
+      </button>
+    </div>
+  </div>
+</form>
+<!--
+<script>
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById("txtfecha1").value = '2024-03-24';
+  window.onload = function() {
+        document.getElementById("txtIng_efectivo").focus();
+    };
+</script>-->
