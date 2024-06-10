@@ -51,3 +51,23 @@ class Requerimientos(models.Model):
     def __str__(self):
         fila = "- Descripcion:" + str(self.descrip_corta)
         return fila
+
+class tipo_soporte(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)    
+    def __str__(self):
+        fila =  str(self.descrip_corta)
+        return fila
+
+class Soporte_Correos(models.Model):
+    id = models.AutoField(primary_key=True)
+    cuenta_correo = models.CharField(max_length=100)
+    solicitante = models.CharField(max_length=50)
+    tecnico = models.CharField(max_length=50)
+    contacto = models.CharField(max_length=10)
+    fch_sop = models.DateField()
+    observ = models.TextField()
+    tipo_sop = models.ForeignKey(tipo_soporte, on_delete=models.CASCADE)
+    def __str__(self):
+        fila = "- Descripcion:" + str(self.dcuenta_correo)
+        return fila
