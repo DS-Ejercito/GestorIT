@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Requerimientos, estado_req, tipo_requerimiento, procedencia, categoria_req 
+from .models import Requerimientos, estado_req, tipo_requerimiento, procedencia, categoria_req
+from .models import Soporte_Correos, tipo_soporte_correos  
 
 estados_req = estado_req.objects.all()
 tipos_requerimiento = tipo_requerimiento.objects.all()
@@ -89,3 +90,7 @@ def req_update_bd(request, id):
     Req.save()
     Req = Requerimientos.objects.all()
     return render(request, 'requerimientos/req_gen.html', {'Req'  : Req } )
+
+def soporte_correo(request):
+    SopCor = Soporte_Correos.objects.all()
+    return render(request, 'soporte_correo/sc_gen.html', {'SopCor'  : SopCor })
