@@ -11,10 +11,11 @@ def inicio(request):
     return render(request, 'base.html')
 
 def requerimientos(request):
-    Req = Requerimientos.objects.all
+    Req = Requerimientos.objects.all()
     return render(request, 'requerimientos/req_gen.html', {'Req'  : Req })
 
 def req_create(request):
+    print(procedencias)
     context = {
         'tipos_requerimiento': tipos_requerimiento,
         'procedencias': procedencias,

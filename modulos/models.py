@@ -6,7 +6,7 @@ class procedencia(models.Model):
     id = models.AutoField(primary_key=True)
     descrip_corta = models.CharField(max_length=50)    
     descrip_larga = models.CharField(max_length=50)    
-    cod_proced_superior = models.IntegerField(null=True, blank=True)
+    cod_proced_superior = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='subcategorias')
     def __str__(self):
         fila =  str(self.descrip_corta)
         return fila
@@ -35,8 +35,8 @@ class estado_req(models.Model):
 class Requerimientos(models.Model):
     id = models.AutoField(primary_key=True)
     descrip_corta = models.CharField(max_length=50)
-    descrip_larga = models.CharField(max_length=50)    
-    descrip_resol = models.CharField(max_length=50, null=True, blank=True)
+    descrip_larga = models.TextField()
+    descrip_resol = models.TextField(null=True, blank=True)
     num_exp = models.CharField(max_length=50)
     fch_rec = models.DateField()
     fch_fin = models.DateField(null=True, blank=True)
