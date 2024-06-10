@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Requerimientos, estado_req, tipo_requerimiento, procedencia, categoria_req 
+#Inventario de Computadoras
+from .models import Computadora, Marca, Estado, Mem_Ram, Sis_Oper, Almac, Office, tp_pc
+
 
 estados_req = estado_req.objects.all()
 tipos_requerimiento = tipo_requerimiento.objects.all()
@@ -89,3 +92,14 @@ def req_update_bd(request, id):
     Req.save()
     Req = Requerimientos.objects.all()
     return render(request, 'requerimientos/req_gen.html', {'Req'  : Req } )
+
+def Inv_PC(request):
+    Inv_pc = Computadora.objects.all()
+    return render(request, 'Inventario/Inv_pc_gen.html', {'Inv_pc'  : Inv_pc })
+
+def delete_PC(request, id):
+    Inv_pc = Computadora.objects.get(id=id)
+    Inv_pc.delete()
+    return Inv_PC(request)
+
+

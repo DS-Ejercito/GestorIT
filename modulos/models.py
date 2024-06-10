@@ -51,3 +51,75 @@ class Requerimientos(models.Model):
     def __str__(self):
         fila = "- Descripcion:" + str(self.descrip_corta)
         return fila
+    
+class tp_pc(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)
+    def __str__(self):
+        fila = str(self.descrip_corta)
+        return fila      
+
+class Mem_Ram(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)
+    def __str__(self):
+        fila = str(self.descrip_corta)
+        return fila      
+
+class Almac(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)
+    def __str__(self):
+        fila = str(self.descrip_corta)
+        return fila      
+
+class Sis_Oper(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)
+    def __str__(self):
+        fila = str(self.descrip_corta)
+        return fila      
+
+class Estado(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)
+    def __str__(self):
+        fila = str(self.descrip_corta)
+        return fila      
+
+class Marca(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)
+    def __str__(self):
+        fila = str(self.descrip_corta)
+        return fila      
+
+class Office(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)
+    def __str__(self):
+        fila = str(self.descrip_corta)
+        return fila      
+
+class Computadora(models.Model):
+    id = models.AutoField(primary_key=True)
+    numero_serie = models.CharField(max_length=100, unique=True)
+    modelo = models.CharField(max_length=100)
+    procesador = models.CharField(max_length=100)
+    Usuario_AD = models.CharField(max_length=100)
+    Nom_Equipo_AD = models.CharField(max_length=100)
+    Ip_Asig = models.CharField(max_length=8)
+    Mac_Eth = models.CharField(max_length=16)
+    Antivirus = models.BooleanField()
+    observaciones = models.TextField(blank=True, null=True)
+    Tipo_PC = models.ForeignKey(tp_pc, on_delete=models.CASCADE)
+    Mem_Ram = models.ForeignKey(Mem_Ram, on_delete=models.CASCADE)
+    Almac = models.ForeignKey(Almac, on_delete=models.CASCADE)
+    Sis_Oper = models.ForeignKey(Sis_Oper, on_delete=models.CASCADE)
+    Estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
+    Marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
+    Office = models.ForeignKey(Office, on_delete=models.CASCADE)
+    cod_proc = models.ForeignKey(procedencia, on_delete=models.CASCADE)
+    def __str__(self):
+        fila = "- Descripcion:" + str(self.Nom_Equipo_AD)
+        return fila
