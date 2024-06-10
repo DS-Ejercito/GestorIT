@@ -5,6 +5,7 @@ from .models import tipo_requerimiento
 from .models import procedencia
 from .models import categoria_req
 from .models import estado_req
+from .models import Soporte_Correos
 #from .models import Cierre_Diario
 from datetime import date
 from django.utils import timezone
@@ -106,3 +107,7 @@ def descargar_archivo(request):
     response['Content-Disposition'] = f"attachment; filename={filename}"
     print(filepath)
     return filepath
+
+def soporte_correos(request):
+    sop_corr = Soporte_Correos.objects.all
+    return render(request, 'Soporte_Correos/create_soporte_correo.html', {'sop_corr'  : sop_corr })

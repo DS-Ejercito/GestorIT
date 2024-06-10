@@ -9,5 +9,6 @@ urlpatterns = [
     path('req_create_bd/', views.req_create_bd),
     path('req_delete/<int:id>', views.req_delete, name='req_delete'),
     path('req_update/<int:id>', views.req_update, name='req_update'),
-    path('descargar/', views.descargar_archivo, name = "descargar")
+    path('descargar/', views.descargar_archivo, name = "descargar"), 
+    path('soporte_correos', views.soporte_correos, name='soporte_correos')
 ] + static(MEDIA_URL ,document_root = MEDIA_ROOT)
