@@ -7,6 +7,7 @@ estados_req = estado_req.objects.all()
 tipos_requerimiento = tipo_requerimiento.objects.all()
 procedencias = procedencia.objects.all()
 categorias_req = categoria_req.objects.all()
+tipo_soporte_correos = tipo_soporte_correos.objects.all()
 
 def inicio(request):
     return render(request, 'base.html')
@@ -94,3 +95,6 @@ def req_update_bd(request, id):
 def soporte_correo(request):
     SopCor = Soporte_Correos.objects.all()
     return render(request, 'soporte_correo/sc_gen.html', {'SopCor'  : SopCor })
+def tipo_soporte_correos(request):
+    TipSopCor = tipo_soporte_correos.objects.all()
+    return render(request, 'tipo_soporte_correos/sc_gen.html', {'TipSopCor'  : TipSopCor })
