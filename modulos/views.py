@@ -9,6 +9,13 @@ estados_req = estado_req.objects.all()
 tipos_requerimiento = tipo_requerimiento.objects.all()
 procedencias = procedencia.objects.all()
 categorias_req = categoria_req.objects.all()
+Marcas = Marca.objects.all()
+Estados = Estado.objects.all()
+Mem_Rams = Mem_Ram.objects.all()
+Sis_Opers = Sis_Oper.objects.all()
+Almacs = Almac.objects.all()
+Offices = Office.objects.all()
+tp_pcs = tp_pc.objects.all()
 
 def inicio(request):
     return render(request, 'base.html')
@@ -102,4 +109,54 @@ def delete_PC(request, id):
     Inv_pc.delete()
     return Inv_PC(request)
 
+def Inv_pc_create(request):
+    context = {
+        'Marca': Marcas,
+        'procedencias': procedencias,
+        'Estado': Estados,
+        'Mem_Ram': Mem_Rams,
+        'Sis_Oper': Sis_Opers,
+        'Almac': Almacs,
+        'Office': Offices,
+        'tp_pc': tp_pcs
+    }
+    return render(request, 'Inventario/Inv_pc_create.html', context)
+
+def Inv_pc_bd(request):
+    Antivirus = request.POST['Antivirus']
+    Computadoras = Computadora(
+        numero_serie = request.POST['numero_serie'] ,
+        modelo = request.POST['modelo'] ,
+        procesador = request.POST['procesador'],
+        Usuario_AD = request.POST['Usuario_AD'], 
+        Nom_Equipo_AD = request.POST['Nom_Equipo_AD'],
+        Ip_Asig = request.POST['Ip_Asig'],
+        Mac_Eth = request.POST['Mac_Eth'],
+        Antivirus = Antivirus,
+        observaciones = request.POST['observaciones'],
+        Tipo_PC = tp_pc.objects.get(id=request.POST['Tipo_PC']),
+        Mem_Ram = Mem_Ram.objects.get(id=request.POST['Mem_Ram']),
+        Almac = Almac.objects.get(id=request.POST['Almac']),
+        Sis_Oper = Sis_Oper.objects.get(id=request.POST['Sis_Oper']),
+        Estado = Estado.objects.get(id=request.POST['Estado']),
+        Marca = Marca.objects.get(id=request.POST['Marca']),
+        Office = Office.objects.get(id=request.POST['Office']),
+        cod_proc = procedencia.objects.get(id=request.POST['cod_proc']))
+    Computadoras.save()
+    return Inv_PC(request)
+
+def Inv_pc_update(request, id):
+    PC = Computadora.objects.get(id=id)
+    context = {
+        'Marca': Marcas,
+        'procedencias': procedencias,
+        'Estado': Estados,
+        'Mem_Ram': Mem_Rams,
+        'Sis_Oper': Sis_Opers,
+        'Almac': Almacs,
+        'Office': Offices,
+        'tp_pc': tp_pcs,
+        'PC': PC
+    }
+    return render(request, 'Inventario/Inv_pc_update.html', context)
 

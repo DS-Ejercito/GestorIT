@@ -108,7 +108,7 @@ class Computadora(models.Model):
     procesador = models.CharField(max_length=100)
     Usuario_AD = models.CharField(max_length=100)
     Nom_Equipo_AD = models.CharField(max_length=100)
-    Ip_Asig = models.CharField(max_length=8)
+    Ip_Asig = models.GenericIPAddressField()
     Mac_Eth = models.CharField(max_length=16)
     Antivirus = models.BooleanField()
     observaciones = models.TextField(blank=True, null=True)

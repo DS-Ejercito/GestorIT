@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from django.conf.urls.static import static
 from gestor_admin_it.settings import MEDIA_ROOT, MEDIA_URL
+
 urlpatterns = [
     path('', views.inicio, name='inicio'),
     path('requerimientos', views.requerimientos, name='requerimientos'),
@@ -12,5 +13,8 @@ urlpatterns = [
     path('req_update_bd/<int:id>', views.req_update_bd, name='req_update_bd'),
     #Invetario de Computadoras
     path('Inv_pc', views.Inv_PC , name='Inv_pc'),
-    path('delete_PC/<int:id>', views.delete_PC, name='delete_PC')
+    path('delete_PC/<int:id>', views.delete_PC, name='delete_PC'),
+    path('Inv_pc_create', views.Inv_pc_create, name='Inv_pc_create'),
+    path('Inv_pc_bd/', views.Inv_pc_bd, name='Inv_pc_create_bd'),
+    path('Inv_pc_update/<int:id>', views.Inv_pc_update, name='Inv_pc_update')
 ] + static(MEDIA_URL ,document_root = MEDIA_ROOT)
