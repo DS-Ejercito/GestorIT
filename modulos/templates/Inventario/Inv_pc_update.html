@@ -8,7 +8,7 @@
 </section>
 <section class="content">
   <div class="container-fluid">
-    <form action="/Inv_pc_create_bd/" enctype="multipart/form-data" method="post">
+    <form action="/Inv_update_bd/{{PC.id}}" enctype="multipart/form-data" method="post">
       {% csrf_token %}
       <div class="row">
         <div class="col-12">
@@ -42,7 +42,6 @@
                 <label for="Marca" class="col-2 col-form-label">Marca</label>
                 <div class="col-4">
                   <select class="form-control" id="Marca" name="Marca" required>
-                    
                     {% for Marca in Marca %}
                     {% if Marca.id == PC.Marca.id %}
                     <option value="{{ Marca.id }}" selected >{{Marca.descrip_corta}}</option>
@@ -148,9 +147,9 @@
                 <div class="col-4">
                   <select class="form-control" id="Antivirus" name="Antivirus" required>
                     {% if PC.Antivirus == True %}
-                    <option value="true" selected>Sí</option>
+                    <option value="True" selected>Sí</option>
                     {% else %}
-                    <option value="false" selected>No</option>
+                    <option value="False" selected>No</option>
                     {% endif %}
                   </select>
                 </div>
@@ -159,7 +158,7 @@
                 <div class="col-4">
                   <select class="form-control" id="Office" name="Office" required>
                     {% for Office in Office %}
-                    {% if Sis_Oper.id == PC.Sis_Oper.id %}
+                    {% if Office.id == PC.Office.id %}
                     <option value="{{ Office.id }}" selected>{{Office.descrip_corta}}</option>
                     {% else %}
                     <option value="{{ Office.id }}">{{Office.descrip_corta}}</option>
@@ -215,13 +214,13 @@
                 <div class="col-2">
                   <button class="btn btn-default btn-block">
                     <i class="bi bi-tools"></i>
-                    <a href="{% url 'Inv_pc' %}">Mantenimientos</a>
+                    <a href="{% url 'Manto_PC' PC.id %}">Mantenimientos</a>
                   </button>
                 </div>
                 <div class="col-2">
                   <button class="btn btn-default btn-block">
                     <i class="bi bi-wrench"></i>
-                    <a href="{% url 'Inv_pc' %}">Diagnostico Tec.</a>
+                    <a href="{% url 'Diagn_Tec' PC.id %}">Diagnostico Tec.</a>
                   </button>
                 </div>
                 <div class="col-4">

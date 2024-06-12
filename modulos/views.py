@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Requerimientos, estado_req, tipo_requerimiento, procedencia, categoria_req 
 #Inventario de Computadoras
-from .models import Computadora, Marca, Estado, Mem_Ram, Sis_Oper, Almac, Office, tp_pc
+from .models import Computadora, Marca, Estado, Mem_Ram, Sis_Oper, Almac, Office, tp_pc, Manto_Computadora, tp_manto_pc, Diagnostico_tecnico
 
 
 estados_req = estado_req.objects.all()
@@ -16,6 +16,8 @@ Sis_Opers = Sis_Oper.objects.all()
 Almacs = Almac.objects.all()
 Offices = Office.objects.all()
 tp_pcs = tp_pc.objects.all()
+tp_manto_pcs = tp_manto_pc.objects.all()
+
 
 def inicio(request):
     return render(request, 'base.html')
@@ -160,3 +162,73 @@ def Inv_pc_update(request, id):
     }
     return render(request, 'Inventario/Inv_pc_update.html', context)
 
+def Inv_update_bd(request, id):
+    PCs = get_object_or_404(Computadora, id = id)
+    PCs.numero_serie = request.POST['numero_serie']
+    PCs.modelo = request.POST['modelo']
+    PCs.procesador = request.POST['procesador']
+    PCs.Usuario_AD = request.POST['Usuario_AD']
+    PCs.Nom_Equipo_AD = request.POST['Nom_Equipo_AD']
+    PCs.Ip_Asig = request.POST['Ip_Asig']
+    PCs.Mac_Eth = request.POST['Mac_Eth']
+    PCs.Antivirus = request.POST['Antivirus']
+    PCs.observaciones = request.POST['observaciones']
+    PCs.Tipo_PC = tp_pc.objects.get(id=request.POST['Tipo_PC'])
+    PCs.Mem_Ram = Mem_Ram.objects.get(id=request.POST['Mem_Ram'])
+    PCs.Almac = Almac.objects.get(id=request.POST['Almac'])
+    PCs.Sis_Oper = Sis_Oper.objects.get(id=request.POST['Sis_Oper'])
+    PCs.Estado = Estado.objects.get(id=request.POST['Estado'])
+    PCs.Marca = Marca.objects.get(id=request.POST['Marca'])
+    PCs.Office = Office.objects.get(id=request.POST['Office'])
+    PCs.cod_proc = procedencia.objects.get(id=request.POST['cod_proc'])
+    PCs.save()
+    return Inv_PC(request)
+
+def Manto_PC(request, id):
+    print(id)
+    PCs = Computadora.objects.get(id=id)
+    Mantos = Manto_Computadora.objects.all()
+    context = {
+        'PC': PCs,
+        'TP_Manto_PC' : tp_manto_pcs,
+        'Manto_PC' : Mantos
+    }
+    return render(request, 'Manto/Manto_PC.html', context)
+
+def Manto_PC_create_bd(request, id):
+    Manto_PC = Manto_Computadora(
+        fch = request.POST['fch'] ,
+        id_Computadora = Computadora.objects.get(id=id),
+        tp_manto_pc = tp_manto_pc.objects.get(id=request.POST['tp_manto_pc']),
+        obs = request.POST['obs']
+    )
+    Manto_PC.save()
+    PCs = Computadora.objects.get(id=id)
+    Mantos = Manto_Computadora.objects.all()
+    context = {
+        'PC': PCs,
+        'TP_Manto_PC' : tp_manto_pcs,
+        'Manto_PC' : Mantos
+    }
+    return render(request, 'Manto/Manto_PC.html', context)
+    
+def Manto_delete_bd(request, id, id2):
+    Mant_PC = Manto_Computadora.objects.get(id=id)
+    Mant_PC.delete()
+    PCs = Computadora.objects.get(id=id2)
+    Mantos = Manto_Computadora.objects.all()
+    context = {
+        'PC': PCs,
+        'TP_Manto_PC' : tp_manto_pcs,
+        'Manto_PC' : Mantos
+    }
+    return render(request, 'Manto/Manto_PC.html', context)
+
+def Diagn_Tec(request, id):
+    PCs = Computadora.objects.get(id=id)
+    Diagn_Tec = Diagnostico_tecnico.objects.all()
+    context = {
+        'PC': PCs,
+        'Diagn_Tec' : Diagn_Tec
+    }
+    return render(request, 'Manto/Diagn_Tec.html', context)

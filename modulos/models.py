@@ -123,3 +123,30 @@ class Computadora(models.Model):
     def __str__(self):
         fila = "- Descripcion:" + str(self.Nom_Equipo_AD)
         return fila
+    
+class tp_manto_pc(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)
+    def __str__(self):
+        fila = str(self.descrip_corta)
+        return fila     
+    
+class Manto_Computadora(models.Model):
+    id = models.AutoField(primary_key=True)
+    fch = models.DateField()
+    id_Computadora = models.ForeignKey(Computadora, on_delete=models.CASCADE)
+    tp_manto_pc = models.ForeignKey(tp_manto_pc, on_delete=models.CASCADE)
+    obs = models.TextField(blank=True, null=True)
+    def __str__(self):
+        fila = str( self.obs)
+        return fila  
+     
+class Diagnostico_tecnico(models.Model):
+    id = models.AutoField(primary_key=True)
+    fch = models.DateField()
+    id_Computadora = models.ForeignKey(Computadora, on_delete=models.CASCADE)
+    fallas = models.TextField(blank=True, null=True)
+    recomendaciones = models.TextField(blank=True, null=True)
+    def __str__(self):
+        fila = str( self.fch)
+        return fila  
