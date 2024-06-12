@@ -1,12 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Requerimientos, estado_req, tipo_requerimiento, procedencia, categoria_req
-from .models import Soporte_Correos, tipo_soporte_correos  
+from .models import Soporte_Correos, tipo_soporte_correos, tecnico, titulo_tecnico  
 
 estados_req = estado_req.objects.all()
 tipos_requerimiento = tipo_requerimiento.objects.all()
 procedencias = procedencia.objects.all()
 categorias_req = categoria_req.objects.all()
+tecnico = tecnico.objects.all()
+titulo_tecnico = titulo_tecnico.objects.all()
 tipo_soporte_correos = tipo_soporte_correos.objects.all()
 
 def inicio(request):
@@ -93,8 +95,9 @@ def req_update_bd(request, id):
     return render(request, 'requerimientos/req_gen.html', {'Req'  : Req } )
 
 def soporte_correo(request):
-    SopCor = Soporte_Correos.objects.all()
-    return render(request, 'soporte_correo/sc_gen.html', {'SopCor'  : SopCor })
-def tipo_soporte_correos(request):
-    TipSopCor = tipo_soporte_correos.objects.all()
-    return render(request, 'tipo_soporte_correos/sc_gen.html', {'TipSopCor'  : TipSopCor })
+    context = {
+        'tecnico': tecnico,
+        'titulo_tecnico': titulo_tecnico,
+        'tipo_soporte_correos': tipo_soporte_correos
+    }
+    return render(request, 'soporte_correo/SopCorreo.html', context)
