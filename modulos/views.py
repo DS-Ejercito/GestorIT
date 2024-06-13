@@ -7,9 +7,9 @@ estados_req = estado_req.objects.all()
 tipos_requerimiento = tipo_requerimiento.objects.all()
 procedencias = procedencia.objects.all()
 categorias_req = categoria_req.objects.all()
-tecnico = tecnico.objects.all()
+tecnicos = tecnico.objects.all()
 titulo_tecnico = titulo_tecnico.objects.all()
-tipo_soporte_correos = tipo_soporte_correos.objects.all()
+tipo_soporte_correoss = tipo_soporte_correos.objects.all()
 
 def inicio(request):
     return render(request, 'base.html')
@@ -95,9 +95,26 @@ def req_update_bd(request, id):
     return render(request, 'requerimientos/req_gen.html', {'Req'  : Req } )
 
 def soporte_correo(request):
+    correos= Soporte_Correos.objects.all()
     context = {
-        'tecnico': tecnico,
-        'titulo_tecnico': titulo_tecnico,
-        'tipo_soporte_correos': tipo_soporte_correos
+        'tecnico': tecnicos,
+        'tipo_soporte_correos': tipo_soporte_correoss,
+        'correos': correos
     }
     return render(request, 'soporte_correo/SopCorreo.html', context)
+
+def sopcor_delete(request, id):
+    cor = Soporte_Correos.objects.get(id=id)
+    cor.delete()
+    return soporte_correo(request)
+
+def sopcor_create_bd(request):
+    soporte_correos = Soporte_Correos(cuenta_correo = request.POST['cuenta_correo'] ,
+                                    solicitante = request.POST['solicitante'],
+                                    contacto = request.POST['contacto'], 
+                                    fch_sop = request.POST['fch_sop'],
+                                    observ = request.POST['observ'],
+                                    tipo_sop = tipo_soporte_correos.objects.get(id=request.POST['tipo_sop']),
+                                    tecnico = tecnico.objects.get(id=request.POST['tecnico']) )
+    soporte_correos.save()
+    return soporte_correo(request)
