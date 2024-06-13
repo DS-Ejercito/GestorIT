@@ -60,16 +60,24 @@
                 <label for="cuenta_correo" class=" col-2 col-form-label">Cuenta de correo</label>
                 <div class="col-4">
                     <input type="mail" class="form-control" id="cuenta_correo" name="cuenta_correo" maxlength="100"
-                    placeholder="Correo@ffaa.mil.hn"  required>
+                    placeholder="correo@ffaa.mil.hn"  required>
                 </div>
               </div>
               <br>
                <div class="row">
                 <label for="contacto" class=" col-2 col-form-label">Número de teléfono</label>
                 <div class="col-4">
-                    <input type="text" class="form-control" id="contacto" name="contacto" maxlength="9"
-                    placeholder="Teléfono"  required>
+                    <input type="tel" class="form-control" id="contacto" name="contacto" pattern="\d{8}" inputmode="numeric" maxlength="9"
+                    placeholder="9999-9999"  required>
                 </div>
+                <label for="Marca" class="col-2 col-form-label">Solicitante.</label>
+                <div class="col-4">
+                    <input type="text" class="form-control" id="solicitante" name="solicitante" maxlength="100"
+                    placeholder="Nombre y apellido"  required>
+                </div>
+              </div>
+              <br>
+              <div class="row">
                 <label for="Ttipo_sop" class=" col-2 col-form-label">Tipo Soporte</label>
                 <div class="col-4">
                   <select class="form-control" id="tipo_sop" name="tipo_sop" required>
@@ -78,19 +86,11 @@
                     {% endfor %}
                   </select>
                 </div>
-              </div>
-              <br>
-              <div class="row">
-                <label for="Marca" class="col-2 col-form-label">Solicitante.</label>
-                <div class="col-4">
-                    <input type="text" class="form-control" id="solicitante" name="solicitante" maxlength="100"
-                    placeholder="Nombre y apellido"  required>
-                </div>
-                <label for="Tipo_PC" class=" col-2 col-form-label">Tipo de Manto</label>
+                <label for="Tipo_PC" class=" col-2 col-form-label">Técnico</label>
                 <div class="col-4">
                   <select class="form-control" id="Tipo_PC" name="Tipo_PC" required>
-                    {% for tipo_soporte_correos in tipo_soporte_correos %}
-                    <option value="{{ tipo_soporte_correos.id }}">{{tipo_soporte_correos.descrip_corta}}</option>
+                    {% for tecnico in tecnico %}
+                    <option value="{{ tecnico.id }}">{{tecnico.descrip_corta}}</option>
                     {% endfor %}
                   </select>
                 </div>
@@ -123,7 +123,7 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Hoja de Vida</h3>
+            <h3 class="card-title">Historial de Soporte Correos</h3>
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                 <i class="fas fa-minus"></i>
@@ -139,9 +139,9 @@
                 <tr>
                   <th>No.</th>
                   <th>Fecha</th>
-                  <th>Tipo de Manto.</th>
+                  <th>Cuenta Correo</th>
                   <th>Tecnico</th>
-                  <th>Acciones</th>
+                  <th>Tipo Soporte</th>
                 </tr>
               </thead>
               <!--
