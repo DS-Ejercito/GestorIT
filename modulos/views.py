@@ -4,6 +4,7 @@ from .models import Requerimientos, estado_req, tipo_requerimiento, procedencia,
 #Inventario de Computadoras
 from .models import Computadora, Marca, Estado, Mem_Ram, Sis_Oper, Almac, Office, tp_pc, Manto_Computadora, tp_manto_pc, Diagnostico_tecnico
 
+from .models import Soporte_Correos, tipo_soporte_correos, tecnico, titulo_tecnico  
 
 estados_req = estado_req.objects.all()
 tipos_requerimiento = tipo_requerimiento.objects.all()
@@ -18,6 +19,9 @@ Offices = Office.objects.all()
 tp_pcs = tp_pc.objects.all()
 tp_manto_pcs = tp_manto_pc.objects.all()
 
+tecnico = tecnico.objects.all()
+titulo_tecnico = titulo_tecnico.objects.all()
+tipo_soporte_correos = tipo_soporte_correos.objects.all()
 
 def inicio(request):
     return render(request, 'base.html')
@@ -232,3 +236,11 @@ def Diagn_Tec(request, id):
         'Diagn_Tec' : Diagn_Tec
     }
     return render(request, 'Manto/Diagn_Tec.html', context)
+
+def soporte_correo(request):
+    context = {
+        'tecnico': tecnico,
+        'titulo_tecnico': titulo_tecnico,
+        'tipo_soporte_correos': tipo_soporte_correos
+    }
+    return render(request, 'soporte_correo/SopCorreo.html', context)

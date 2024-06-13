@@ -150,3 +150,37 @@ class Diagnostico_tecnico(models.Model):
     def __str__(self):
         fila = str( self.fch)
         return fila 
+
+class titulo_tecnico(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)    
+    def __str__(self):
+        fila =  str(self.descrip_corta)
+        return fila
+class tecnico(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)    
+    def __str__(self):
+        fila =  str(self.descrip_corta)
+        return fila
+
+class tipo_soporte_correos(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)    
+    def __str__(self):
+        fila =  str(self.descrip_corta)
+        return fila
+
+class Soporte_Correos(models.Model):
+    id = models.AutoField(primary_key=True)
+    cuenta_correo = models.CharField(max_length=100)
+    solicitante = models.CharField(max_length=50)
+    contacto = models.CharField(max_length=10)
+    fch_sop = models.DateField()
+    observ = models.TextField()
+    titulo_tecnico = models.ForeignKey(titulo_tecnico, on_delete=models.CASCADE)
+    tecnico = models.ForeignKey(tecnico, on_delete=models.CASCADE)
+    tipo_sop = models.ForeignKey(tipo_soporte_correos, on_delete=models.CASCADE)
+    def __str__(self):
+        fila = "- Descripcion:" + str(self.dcuenta_correo)
+        return fila

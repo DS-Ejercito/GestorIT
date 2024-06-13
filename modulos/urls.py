@@ -21,5 +21,6 @@ urlpatterns = [
     path('Manto_PC/<int:id>', views.Manto_PC, name='Manto_PC'),
     path('Manto_PC_create_bd/<int:id>', views.Manto_PC_create_bd, name='Manto_PC_create'),
     path('Manto_delete_bd/<int:id>/<int:id2>', views.Manto_delete_bd, name='Manto_delete_bd'),
-    path('Diagn_Tec/<int:id>', views.Diagn_Tec, name='Diagn_Tec')
+    path('Diagn_Tec/<int:id>', views.Diagn_Tec, name='Diagn_Tec'),
+    path('soporte_correo', views.soporte_correo, name='soporte_correo')
 ] + static(MEDIA_URL ,document_root = MEDIA_ROOT)
