@@ -129,8 +129,8 @@ class tp_manto_pc(models.Model):
     descrip_corta = models.CharField(max_length=50)
     def __str__(self):
         fila = str(self.descrip_corta)
-        return fila     
-    
+        return fila
+
 class Manto_Computadora(models.Model):
     id = models.AutoField(primary_key=True)
     fch = models.DateField()
@@ -149,4 +149,4 @@ class Diagnostico_tecnico(models.Model):
     recomendaciones = models.TextField(blank=True, null=True)
     def __str__(self):
         fila = str( self.fch)
-        return fila  
+        return fila 
