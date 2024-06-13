@@ -19,7 +19,6 @@ Offices = Office.objects.all()
 tp_pcs = tp_pc.objects.all()
 tp_manto_pcs = tp_manto_pc.objects.all()
 
-tecnico = tecnico.objects.all()
 tecnicos = tecnico.objects.all()
 titulo_tecnico = titulo_tecnico.objects.all()
 tipo_soporte_correoss = tipo_soporte_correos.objects.all()
