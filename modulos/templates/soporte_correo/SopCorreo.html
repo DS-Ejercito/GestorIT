@@ -34,7 +34,7 @@
 </section>
 <section class="content">
   <div class="container-fluid">
-    <form action="/Inv_update_bd/" enctype="multipart/form-data" method="post">
+    <form action="/sopcor_create_bd/" enctype="multipart/form-data" method="post">
       {% csrf_token %}
       <div class="row">
         <div class="col-12">
@@ -68,7 +68,7 @@
                 <label for="contacto" class=" col-2 col-form-label">Número de teléfono</label>
                 <div class="col-4">
                     <input type="tel" class="form-control" id="contacto" name="contacto" pattern="\d{8}" inputmode="numeric" maxlength="9"
-                    placeholder="9999-9999"  required>
+                    placeholder="99999999"  required>
                 </div>
                 <label for="Marca" class="col-2 col-form-label">Solicitante.</label>
                 <div class="col-4">
@@ -81,6 +81,7 @@
                 <label for="Ttipo_sop" class=" col-2 col-form-label">Tipo Soporte</label>
                 <div class="col-4">
                   <select class="form-control" id="tipo_sop" name="tipo_sop" required>
+                    <option value=""> Seleccione</option>
                     {% for tipo_soporte_correos in tipo_soporte_correos %}
                     <option value="{{ tipo_soporte_correos.id }}">{{tipo_soporte_correos.descrip_corta}}</option>
                     {% endfor %}
@@ -88,7 +89,8 @@
                 </div>
                 <label for="Tipo_PC" class=" col-2 col-form-label">Técnico</label>
                 <div class="col-4">
-                  <select class="form-control" id="Tipo_PC" name="Tipo_PC" required>
+                  <select class="form-control" id="tecnico" name="tecnico" required>
+                    <option value=""> Seleccione</option>
                     {% for tecnico in tecnico %}
                     <option value="{{ tecnico.id }}">{{tecnico.descrip_corta}}</option>
                     {% endfor %}
@@ -99,8 +101,8 @@
                 <div class="col-12">
                   <div class="form-group">
                     <label for="observaciones">Observaciones</label>
-                    <textarea class="form-control" id="observaciones" name="observaciones" rows="2"
-                      placeholder="Observaciones" required>{{PC.observaciones}}</textarea>
+                    <textarea class="form-control" id="observ" name="observ" rows="2"
+                      placeholder="observaciones" required></textarea>
                   </div>
                 </div>
               </div>
@@ -142,37 +144,26 @@
                   <th>Cuenta Correo</th>
                   <th>Tecnico</th>
                   <th>Tipo Soporte</th>
+                  <th>Observaciones</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
-              <!--
+              
                 <tbody>
-                  {% for Inv_pc in Inv_pc %}
+                  {% for correos in correos %}
                   <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>{{Inv_pc.cod_proc}}</td>
-                    <td>{{Inv_pc.Nom_Equipo_AD}}</td>
-                    <td>{{Inv_pc.Usuario_AD}}</td>
-                    <td>{{Inv_pc.Ip_Asig}}</td>
-                    <td>{{Inv_pc.Estado}}</td>
-                    <td><a name="" id="" class="btn btn-info btn-sm" href="{% url 'Inv_pc_update' Inv_pc.id %}" role="button"><i class="bi bi-pencil-square"></i></a>
-                      <a name="" id="" class="btn btn-danger btn-sm" href="{% url 'delete_PC' Inv_pc.id %}" role="button"><i class="fas fa-trash-alt"></i>
+                    <td>{{correos.fch_sop|date:"d-m-Y"}}</td>
+                    <td>{{correos.cuenta_correo}}</td>
+                    <td>{{correos.tecnico}}</td>
+                    <td>{{correos.tipo_sop}}</td>
+                    <td>{{correos.observ}}</td>
+                    <td>
+                      <a name="" id="" class="btn btn-danger btn-sm" href="{% url 'sopcor_delete' correos.id %}" role="button"><i class="fas fa-trash-alt"></i>
                       </a></td>
                   </tr>
-                  {% endfor %}-->
-              <!--                   {% for Movimientos in Movimientos %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{Movimientos.fecha|date:"d-m-Y"}}</td>
-                        <td>{{Movimientos.descripcion}}</td>
-                        <td>L. {{Movimientos.cantidad}}</td>
-                        <td>{{Movimientos.cod_tp_pago}}</td>
-                        <td>
-                          <a name="" id="" class="btn btn-info" href="{% url 'mov_editar' Movimientos.id %}" role="button"><i class="bi bi-pencil-square"></i></a>
-                          <a name="" id="" class="btn btn-danger" href="{% url 'mov_eliminar' Movimientos.id %}" role="button"><i class="fas fa-trash-alt"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    {% endfor %} -->
+                  {% endfor %}
+             
               </tbody>
             </table>
             <br />

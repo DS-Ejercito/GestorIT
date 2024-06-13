@@ -178,9 +178,8 @@ class Soporte_Correos(models.Model):
     contacto = models.CharField(max_length=10)
     fch_sop = models.DateField()
     observ = models.TextField()
-    titulo_tecnico = models.ForeignKey(titulo_tecnico, on_delete=models.CASCADE)
     tecnico = models.ForeignKey(tecnico, on_delete=models.CASCADE)
     tipo_sop = models.ForeignKey(tipo_soporte_correos, on_delete=models.CASCADE)
     def __str__(self):
-        fila = "- Descripcion:" + str(self.dcuenta_correo)
+        fila = "- Descripcion:" + str(self.cuenta_correo)
         return fila
