@@ -183,3 +183,16 @@ class Soporte_Correos(models.Model):
     def __str__(self):
         fila = "- Descripcion:" + str(self.cuenta_correo)
         return fila
+
+class Equip_Pers(models.Model):
+    id = models.AutoField(primary_key=True)
+    direccion_mac = models.CharField(max_length=17, unique=True)
+    direccion_ip = models.CharField(max_length=16, unique=True)
+    nom_equip_utm = models.CharField(max_length=100)
+    nom_completo = models.CharField(max_length=100)
+    fch_con = models.DateTimeField(auto_now_add=True)
+    obs = models.TextField()
+    cod_proc = models.ForeignKey(procedencia, on_delete=models.CASCADE)
+    tecnico = models.ForeignKey(tecnico, on_delete=models.CASCADE)
+    def __str__(self):
+        return f'{self.nom_equip_utm} ({self.direccion_ip})'

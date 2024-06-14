@@ -3,8 +3,11 @@ from django.http import HttpResponse
 from .models import Requerimientos, estado_req, tipo_requerimiento, procedencia, categoria_req 
 #Inventario de Computadoras
 from .models import Computadora, Marca, Estado, Mem_Ram, Sis_Oper, Almac, Office, tp_pc, Manto_Computadora, tp_manto_pc, Diagnostico_tecnico
-
+#Inventario de Soporte Correo
 from .models import Soporte_Correos, tipo_soporte_correos, tecnico, titulo_tecnico  
+#Inventario de Computadoras
+from .models import Equip_Pers
+
 
 estados_req = estado_req.objects.all()
 tipos_requerimiento = tipo_requerimiento.objects.all()
@@ -261,3 +264,29 @@ def sopcor_create_bd(request):
                                     tecnico = tecnico.objects.get(id=request.POST['tecnico']) )
     soporte_correos.save()
     return soporte_correo(request)
+
+def Equip_Pers_Red(request):
+    Equip_Pers_a = Equip_Pers.objects.all()
+    context = {
+        'tecnico': tecnicos,
+        'Equip_Pers_a': Equip_Pers_a,
+        'procedencias': procedencias
+        }
+    return render(request, 'soporte_correo/Sop_Equip_Per_Red.html', context)
+
+def sop_equip_pers_create_bd(request):
+    Equip_Pers_c = Equip_Pers(
+        direccion_mac = request.POST['direccion_mac'] ,
+        direccion_ip = request.POST['direccion_ip'],
+        nom_equip_utm = request.POST['nom_equip_utm'], 
+        nom_completo = request.POST['nom_completo'],
+        obs = request.POST['obs'],
+        cod_proc = procedencia.objects.get(id=request.POST['cod_proc']),
+        tecnico = tecnico.objects.get(id=request.POST['tecnico']))
+    Equip_Pers_c.save()
+    return Equip_Pers_Red(request)
+
+def sop_equip_pers_delete(request, id):
+    Equip_Pers_c = Equip_Pers.objects.get(id=id)
+    Equip_Pers_c.delete()
+    return Equip_Pers_Red(request)
