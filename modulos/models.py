@@ -6,7 +6,7 @@ class procedencia(models.Model):
     id = models.AutoField(primary_key=True)
     descrip_corta = models.CharField(max_length=50)    
     descrip_larga = models.CharField(max_length=50)    
-    cod_proced_superior = models.IntegerField(null=True, blank=True)
+    cod_proced_superior = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='subcategorias')
     def __str__(self):
         fila =  str(self.descrip_corta)
         return fila
@@ -35,8 +35,8 @@ class estado_req(models.Model):
 class Requerimientos(models.Model):
     id = models.AutoField(primary_key=True)
     descrip_corta = models.CharField(max_length=50)
-    descrip_larga = models.CharField(max_length=50)    
-    descrip_resol = models.CharField(max_length=50, null=True, blank=True)
+    descrip_larga = models.TextField()
+    descrip_resol = models.TextField(null=True, blank=True)
     num_exp = models.CharField(max_length=50)
     fch_rec = models.DateField()
     fch_fin = models.DateField(null=True, blank=True)
@@ -51,3 +51,148 @@ class Requerimientos(models.Model):
     def __str__(self):
         fila = "- Descripcion:" + str(self.descrip_corta)
         return fila
+    
+class tp_pc(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)
+    def __str__(self):
+        fila = str(self.descrip_corta)
+        return fila      
+
+class Mem_Ram(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)
+    def __str__(self):
+        fila = str(self.descrip_corta)
+        return fila      
+
+class Almac(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)
+    def __str__(self):
+        fila = str(self.descrip_corta)
+        return fila      
+
+class Sis_Oper(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)
+    def __str__(self):
+        fila = str(self.descrip_corta)
+        return fila      
+
+class Estado(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)
+    def __str__(self):
+        fila = str(self.descrip_corta)
+        return fila      
+
+class Marca(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)
+    def __str__(self):
+        fila = str(self.descrip_corta)
+        return fila      
+
+class Office(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)
+    def __str__(self):
+        fila = str(self.descrip_corta)
+        return fila      
+
+class Computadora(models.Model):
+    id = models.AutoField(primary_key=True)
+    numero_serie = models.CharField(max_length=100, unique=True)
+    modelo = models.CharField(max_length=100)
+    procesador = models.CharField(max_length=100)
+    Usuario_AD = models.CharField(max_length=100)
+    Nom_Equipo_AD = models.CharField(max_length=100)
+    Ip_Asig = models.GenericIPAddressField()
+    Mac_Eth = models.CharField(max_length=16)
+    Antivirus = models.BooleanField()
+    observaciones = models.TextField(blank=True, null=True)
+    Tipo_PC = models.ForeignKey(tp_pc, on_delete=models.CASCADE)
+    Mem_Ram = models.ForeignKey(Mem_Ram, on_delete=models.CASCADE)
+    Almac = models.ForeignKey(Almac, on_delete=models.CASCADE)
+    Sis_Oper = models.ForeignKey(Sis_Oper, on_delete=models.CASCADE)
+    Estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
+    Marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
+    Office = models.ForeignKey(Office, on_delete=models.CASCADE)
+    cod_proc = models.ForeignKey(procedencia, on_delete=models.CASCADE)
+    def __str__(self):
+        fila = "- Descripcion:" + str(self.Nom_Equipo_AD)
+        return fila
+    
+class tp_manto_pc(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)
+    def __str__(self):
+        fila = str(self.descrip_corta)
+        return fila
+
+class Manto_Computadora(models.Model):
+    id = models.AutoField(primary_key=True)
+    fch = models.DateField()
+    id_Computadora = models.ForeignKey(Computadora, on_delete=models.CASCADE)
+    tp_manto_pc = models.ForeignKey(tp_manto_pc, on_delete=models.CASCADE)
+    obs = models.TextField(blank=True, null=True)
+    def __str__(self):
+        fila = str( self.obs)
+        return fila  
+     
+class Diagnostico_tecnico(models.Model):
+    id = models.AutoField(primary_key=True)
+    fch = models.DateField()
+    id_Computadora = models.ForeignKey(Computadora, on_delete=models.CASCADE)
+    fallas = models.TextField(blank=True, null=True)
+    recomendaciones = models.TextField(blank=True, null=True)
+    def __str__(self):
+        fila = str( self.fch)
+        return fila 
+
+class titulo_tecnico(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)    
+    def __str__(self):
+        fila =  str(self.descrip_corta)
+        return fila
+class tecnico(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)    
+    def __str__(self):
+        fila =  str(self.descrip_corta)
+        return fila
+
+class tipo_soporte_correos(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.CharField(max_length=50)    
+    def __str__(self):
+        fila =  str(self.descrip_corta)
+        return fila
+
+class Soporte_Correos(models.Model):
+    id = models.AutoField(primary_key=True)
+    cuenta_correo = models.CharField(max_length=100)
+    solicitante = models.CharField(max_length=50)
+    contacto = models.CharField(max_length=10)
+    fch_sop = models.DateField()
+    observ = models.TextField()
+    tecnico = models.ForeignKey(tecnico, on_delete=models.CASCADE)
+    tipo_sop = models.ForeignKey(tipo_soporte_correos, on_delete=models.CASCADE)
+    def __str__(self):
+        fila = "- Descripcion:" + str(self.cuenta_correo)
+        return fila
+
+class Equip_Pers(models.Model):
+    id = models.AutoField(primary_key=True)
+    direccion_mac = models.CharField(max_length=17, unique=True)
+    direccion_ip = models.CharField(max_length=16, unique=True)
+    nom_equip_utm = models.CharField(max_length=100)
+    nom_completo = models.CharField(max_length=100)
+    fch_con = models.DateTimeField(auto_now_add=True)
+    obs = models.TextField()
+    cod_proc = models.ForeignKey(procedencia, on_delete=models.CASCADE)
+    tecnico = models.ForeignKey(tecnico, on_delete=models.CASCADE)
+    def __str__(self):
+        return f'{self.nom_equip_utm} ({self.direccion_ip})'
