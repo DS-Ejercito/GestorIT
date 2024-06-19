@@ -56,6 +56,7 @@
                 <label for="cod_proc" class="col-2 col-form-label">Procediente</label>
                 <div class="col-4">
                   <select class="form-control" id="cod_proc" name="cod_proc" required>
+                    <option value=""> Seleccione</option>
                   {% for procedencias in procedencias %}
                   <option value="{{ procedencias.id }}">{{procedencias.descrip_corta}}</option>
                   {% endfor %}
