@@ -27,6 +27,9 @@ titulo_tecnico = titulo_tecnico.objects.all()
 tipo_soporte_correoss = tipo_soporte_correos.objects.all()
 
 def inicio(request):
+    return render(request, 'index.html')
+
+def inicio_2(request):
     return render(request, 'base.html')
 
 def requerimientos(request):
@@ -34,7 +37,6 @@ def requerimientos(request):
     return render(request, 'requerimientos/req_gen.html', {'Req'  : Req })
 
 def req_create(request):
-    print(procedencias)
     context = {
         'tipos_requerimiento': tipos_requerimiento,
         'procedencias': procedencias,
@@ -62,14 +64,12 @@ def req_create_bd(request):
                                     img_req = request.FILES.get('img_req'),
                                     img_resol = request.FILES.get('img_resol'))
     requerimiento.save()
-    Req = Requerimientos.objects.all()
-    return render(request, 'requerimientos/req_gen.html', {'Req'  : Req })
+    return redirect('requerimientos')
 
 def req_delete(request, id):
     Req = Requerimientos.objects.get(id=id)
     Req.delete()
-    Req = Requerimientos.objects.all()
-    return render(request, 'requerimientos/req_gen.html', {'Req'  : Req })
+    return redirect('requerimientos')
 
 def req_update(request, id):
     Req1 = Requerimientos.objects.get(id=id)
@@ -81,7 +81,6 @@ def req_update(request, id):
         'estados_req': estados_req,
          'Req1' : Req1
     }
-    print(Req1.cod_tp_req)
     return render(request, 'requerimientos/req_update.html', context)
 
 def req_update_bd(request, id):
@@ -104,7 +103,7 @@ def req_update_bd(request, id):
     if request.FILES.get('img_req') is not None:
         Req.img_req = request.FILES.get('img_req')
     if request.FILES.get('img_resol') is not None:
-        Req.img_req = request.FILES.get('img_resol')
+        Req.img_resol = request.FILES.get('img_resol')
     Req.save()
     Req = Requerimientos.objects.all()
     return render(request, 'requerimientos/req_gen.html', {'Req'  : Req } )
@@ -116,7 +115,7 @@ def Inv_PC(request):
 def delete_PC(request, id):
     Inv_pc = Computadora.objects.get(id=id)
     Inv_pc.delete()
-    return Inv_PC(request)
+    return redirect('Inv_pc')
 
 def Inv_pc_create(request):
     context = {
@@ -152,7 +151,7 @@ def Inv_pc_bd(request):
         Office = Office.objects.get(id=request.POST['Office']),
         cod_proc = procedencia.objects.get(id=request.POST['cod_proc']))
     Computadoras.save()
-    return Inv_PC(request)
+    return redirect('Inv_pc')
 
 def Inv_pc_update(request, id):
     PC = Computadora.objects.get(id=id)
@@ -189,10 +188,9 @@ def Inv_update_bd(request, id):
     PCs.Office = Office.objects.get(id=request.POST['Office'])
     PCs.cod_proc = procedencia.objects.get(id=request.POST['cod_proc'])
     PCs.save()
-    return Inv_PC(request)
+    return redirect('Inv_pc')
 
 def Manto_PC(request, id):
-    print(id)
     PCs = Computadora.objects.get(id=id)
     Mantos = Manto_Computadora.objects.all()
     context = {
@@ -252,7 +250,7 @@ def soporte_correo(request):
 def sopcor_delete(request, id):
     cor = Soporte_Correos.objects.get(id=id)
     cor.delete()
-    return soporte_correo(request)
+    return redirect('soporte_correo')
 
 def sopcor_create_bd(request):
     soporte_correos = Soporte_Correos(cuenta_correo = request.POST['cuenta_correo'] ,
@@ -263,7 +261,12 @@ def sopcor_create_bd(request):
                                     tipo_sop = tipo_soporte_correos.objects.get(id=request.POST['tipo_sop']),
                                     tecnico = tecnico.objects.get(id=request.POST['tecnico']) )
     soporte_correos.save()
-    return soporte_correo(request)
+    return redirect('soporte_correo')
+
+def sop_equip_pers_delete(request, id):
+    Equip_Pers_c = Equip_Pers.objects.get(id=id)
+    Equip_Pers_c.delete()
+    return redirect('sop_equip_pers_r')
 
 def Equip_Pers_Red(request):
     Equip_Pers_a = Equip_Pers.objects.all()
@@ -284,9 +287,4 @@ def sop_equip_pers_create_bd(request):
         cod_proc = procedencia.objects.get(id=request.POST['cod_proc']),
         tecnico = tecnico.objects.get(id=request.POST['tecnico']))
     Equip_Pers_c.save()
-    return Equip_Pers_Red(request)
-
-def sop_equip_pers_delete(request, id):
-    Equip_Pers_c = Equip_Pers.objects.get(id=id)
-    Equip_Pers_c.delete()
-    return Equip_Pers_Red(request)
+    return redirect('sop_equip_pers_r')
