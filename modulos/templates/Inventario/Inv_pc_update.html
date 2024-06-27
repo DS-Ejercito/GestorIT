@@ -4,6 +4,18 @@
 <link rel="stylesheet" href="../../static/lib/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="../../static/lib/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="../../static/lib/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+<style>
+  .qr-container {
+    text-align: center;
+   
+  }
+
+  .qr-container img {
+    max-width: 150px;
+    /* Ajusta el tamaño deseado */
+    height: auto;
+  }
+</style>
 <section class="content-header">
 </section>
 <section class="content">
@@ -25,6 +37,9 @@
               </div>
             </div>
             <div class="card-body">
+              <div class="qr-container">
+                <img src="data:image/png;base64,{{ img_str }}" alt="Código QR">
+              </div>
               <div class="row">
                 <label for="numero_serie" class="col-2 col-form-label">Número de Serie</label>
                 <div class="col-4">
@@ -44,7 +59,7 @@
                   <select class="form-control" id="Marca" name="Marca" required>
                     {% for Marca in Marca %}
                     {% if Marca.id == PC.Marca.id %}
-                    <option value="{{ Marca.id }}" selected >{{Marca.descrip_corta}}</option>
+                    <option value="{{ Marca.id }}" selected>{{Marca.descrip_corta}}</option>
                     {% else %}
                     <option value="{{ Marca.id }}">{{Marca.descrip_corta}}</option>
                     {% endif %}
@@ -54,7 +69,7 @@
                 <label for="Tipo_PC" class=" col-2 col-form-label">Tipo de PC</label>
                 <div class="col-4">
                   <select class="form-control" id="Tipo_PC" name="Tipo_PC" required>
-                    
+
                     {% for tp_pc in tp_pc %}
                     {% if tp_pc.id == PC.Tipo_PC.id %}
                     <option value="{{ tp_pc.id }}" selected>{{tp_pc.descrip_corta}}</option>
@@ -75,7 +90,7 @@
                 <label for="Mem_Ram" class="col-2 col-form-label">Memoria RAM</label>
                 <div class="col-4">
                   <select class="form-control" id="Mem_Ram" name="Mem_Ram" required>
-                    
+
                     {% for Mem_Ram in Mem_Ram %}
                     {% if Mem_Ram.id == PC.Mem_Ram.id %}
                     <option value="{{ Mem_Ram.id }}" selected>{{ Mem_Ram.descrip_corta }}</option>
@@ -91,7 +106,7 @@
                 <label for="Almac" class="col-2 col-form-label">Almacenamiento</label>
                 <div class="col-4">
                   <select class="form-control" id="Almac" name="Almac" required>
-                    
+
                     {% for Almac in Almac %}
                     {% if Almac.id == PC.Almac.id %}
                     <option value="{{ Almac.id }}" selected>{{Almac.descrip_corta}}</option>
@@ -104,7 +119,7 @@
                 <label for="Sis_Oper" class=" col-2 col-form-label">Sistema Operativo</label>
                 <div class="col-4">
                   <select class="form-control" id="Sis_Oper" name="Sis_Oper" required>
-                    
+
                     {% for Sis_Oper in Sis_Oper %}
                     {% if Sis_Oper.id == PC.Sis_Oper.id %}
                     <option value="{{ Sis_Oper.id }}" selected>{{Sis_Oper.descrip_corta}}</option>

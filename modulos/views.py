@@ -7,7 +7,10 @@ from .models import Computadora, Marca, Estado, Mem_Ram, Sis_Oper, Almac, Office
 from .models import Soporte_Correos, tipo_soporte_correos, tecnico, titulo_tecnico  
 #Inventario de Computadoras
 from .models import Equip_Pers
-
+#Generar QR
+import qrcode
+from io import BytesIO
+import base64
 
 estados_req = estado_req.objects.all()
 tipos_requerimiento = tipo_requerimiento.objects.all()
@@ -81,6 +84,7 @@ def req_update(request, id):
         'estados_req': estados_req,
          'Req1' : Req1
     }
+    
     return render(request, 'requerimientos/req_update.html', context)
 
 def req_update_bd(request, id):
@@ -154,6 +158,23 @@ def Inv_pc_bd(request):
     return redirect('Inv_pc')
 
 def Inv_pc_update(request, id):
+    PC = get_object_or_404(Computadora, id=id)
+        # Datos que se incluirán en el código QR
+    data = f"Marca: {PC.Marca}\nModelo: {PC.modelo}\nSerie: {PC.Ip_Asig}"
+        # Generar el código QR
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(data)
+    qr.make(fit=True)
+    
+    img = qr.make_image(fill='black', back_color='white')
+    buffer = BytesIO()
+    img.save(buffer)
+    img_str = base64.b64encode(buffer.getvalue()).decode()
     PC = Computadora.objects.get(id=id)
     context = {
         'Marca': Marcas,
@@ -164,7 +185,8 @@ def Inv_pc_update(request, id):
         'Almac': Almacs,
         'Office': Offices,
         'tp_pc': tp_pcs,
-        'PC': PC
+        'PC': PC,
+        'img_str': img_str
     }
     return render(request, 'Inventario/Inv_pc_update.html', context)
 
