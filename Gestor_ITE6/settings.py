@@ -74,19 +74,47 @@ WSGI_APPLICATION = 'Gestor_ITE6.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'mssql',
+#        'NAME': 'Gestor_IT',
+#        'USER': '',
+#        'PASSWORD': '',
+#        'HOST': 'localhost\\SQLEXPRESS',
+#        'PORT': '',
+#        'OPTIONS': {
+#            'driver': 'ODBC Driver 17 for SQL Server',
+#                    },
+#    }
+#}
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
         'NAME': 'Gestor_IT',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': 'localhost\\SQLEXPRESS',
+        'USER': 'sa',
+        'PASSWORD': 'T3cn0l0g1@13',
+        'HOST': '172.22.4.16',
         'PORT': '',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
                     },
     }
 }
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'mssql',
+#        'NAME': 'gestor_admin_it',
+#        'USER': 'sa',
+#        'PASSWORD': 'T3cn0l0g1@13',
+#        'HOST': '172.22.4.16',
+#        'PORT': '',
+#        'OPTIONS': {
+#            'driver': 'ODBC Driver 17 for SQL Server',
+#                    },
+#    }
+#}
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 

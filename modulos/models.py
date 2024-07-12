@@ -87,6 +87,13 @@ class Estado(models.Model):
         fila = str(self.descrip_corta)
         return fila     
 
+class Officeq(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.TextField()
+    def __str__(self):
+        fila = str(self.descrip_corta)
+        return fila 
+    
 class Marca(models.Model):
     id = models.AutoField(primary_key=True)
     descrip_corta = models.TextField()
@@ -187,8 +194,8 @@ class Soporte_Correos(models.Model):
 
 class Equip_Pers(models.Model):
     id = models.AutoField(primary_key=True)
-    dir_mac = models.TextField()
-    dir_ip = models.TextField()
+    dir_mac = models.TextField(default= "XX:XX:XX:XX:XX:XX")
+    dir_ip = models.TextField(default= "0.0.0.0")
     nom_equip_utm = models.TextField()
     nom_completo = models.TextField()
     fch_con = models.DateTimeField(auto_now_add=True)
@@ -198,3 +205,19 @@ class Equip_Pers(models.Model):
     def __str__(self):
         return f'{self.nom_equip_utm}'
 
+class programa(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.TextField()    
+    def __str__(self):
+        fila =  str(self.descrip_corta)
+        return fila
+
+class Prog_Inst_PC(models.Model):
+    id = models.AutoField(primary_key=True)
+    fch = models.DateField()
+    id_Computadora = models.ForeignKey(Computadora, on_delete=models.CASCADE)
+    cod_programa = models.ForeignKey(programa, on_delete=models.CASCADE)
+    tecnico = models.ForeignKey(tecnico, on_delete=models.CASCADE)
+    def __str__(self):
+        fila = str( self.fch)
+        return fila 

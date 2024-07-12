@@ -8,6 +8,9 @@ from .models import Computadora, Marca, Estado, Mem_Ram, Sis_Oper, Almac, Office
 from .models import Soporte_Correos, tipo_soporte_correos, tecnico, titulo_tecnico  
 #Inventario de Computadoras
 from .models import Equip_Pers
+#Instalacion de Programas
+from .models import programa
+from .models import Prog_Inst_PC
 #Generar QR
 import qrcode
 from io import BytesIO
@@ -161,7 +164,7 @@ def Inv_pc_bd(request):
 def Inv_pc_update(request, id):
     PC = get_object_or_404(Computadora, id=id)
         # Datos que se incluirán en el código QR
-    data = f"Marca: {PC.Marca}\nModelo: {PC.modelo}\nSerie: {PC.Ip_Asig}"
+    data = f"\nUbicacion: {PC.cod_proc} \nIP: {PC.Ip_Asig} \nMAC: {PC.Mac_Eth} \nUsuario: {PC.Usuario_AD} \nNombre del Equipo: {PC.Nom_Equipo_AD} \nSerie: {PC.numero_serie}\nModelo: {PC.modelo}\nMarca: {PC.Marca}\nProcesador: {PC.Ip_Asig}\nRAM: {PC.Mem_Ram}\nAlmacenamiento: {PC.Almac}\nSO: {PC.Sis_Oper}"
         # Generar el código QR
     qr = qrcode.QRCode(
         version=1,
@@ -311,3 +314,13 @@ def sop_equip_pers_create_bd(request):
         tecnico = tecnico.objects.get(id=request.POST['tecnico']))
     Equip_Pers_c.save()
     return redirect('sop_equip_pers_r')
+
+def Prog_Ins_PC(request, id):
+    PCs = Computadora.objects.get(id=id)
+    Prog_Ins = Manto_Computadora.objects.all()
+    context = {
+        'PC': PCs,
+        'TP_Manto_PC' : tp_manto_pcs,
+        'Manto_PC' : Mantos
+    }
+    return render(request, 'Manto/Manto_PC.html', context)
