@@ -138,25 +138,7 @@ class tp_manto_pc(models.Model):
         fila = str(self.descrip_corta)
         return fila
 
-class Manto_Computadora(models.Model):
-    id = models.AutoField(primary_key=True)
-    fch = models.DateField()
-    id_Computadora = models.ForeignKey(Computadora, on_delete=models.CASCADE)
-    tp_manto_pc = models.ForeignKey(tp_manto_pc, on_delete=models.CASCADE)
-    obs = models.TextField(blank=True, null=True)
-    def __str__(self):
-        fila = str( self.obs)
-        return fila  
 
-class Diagnostico_tecnico(models.Model):
-    id = models.AutoField(primary_key=True)
-    fch = models.DateField()
-    id_Computadora = models.ForeignKey(Computadora, on_delete=models.CASCADE)
-    fallas = models.TextField(blank=True, null=True)
-    recomendaciones = models.TextField(blank=True, null=True)
-    def __str__(self):
-        fila = str( self.fch)
-        return fila 
 
 class titulo_tecnico(models.Model):
     id = models.AutoField(primary_key=True)
@@ -217,6 +199,28 @@ class Prog_Inst_PC(models.Model):
     fch = models.DateField()
     id_Computadora = models.ForeignKey(Computadora, on_delete=models.CASCADE)
     cod_programa = models.ForeignKey(programa, on_delete=models.CASCADE)
+    tecnico = models.ForeignKey(tecnico, on_delete=models.CASCADE)
+    def __str__(self):
+        fila = str( self.fch)
+        return fila 
+
+class Manto_Computadora(models.Model):
+    id = models.AutoField(primary_key=True)
+    fch = models.DateField()
+    id_Computadora = models.ForeignKey(Computadora, on_delete=models.CASCADE)
+    tp_manto_pc = models.ForeignKey(tp_manto_pc, on_delete=models.CASCADE)
+    obs = models.TextField(blank=True, null=True)
+    tecnico = models.ForeignKey(tecnico, on_delete=models.CASCADE)
+    def __str__(self):
+        fila = str( self.obs)
+        return fila  
+
+class Diagnostico_tecnico(models.Model):
+    id = models.AutoField(primary_key=True)
+    fch = models.DateField()
+    id_Computadora = models.ForeignKey(Computadora, on_delete=models.CASCADE)
+    fallas = models.TextField(blank=True, null=True)
+    recomendaciones = models.TextField(blank=True, null=True)
     tecnico = models.ForeignKey(tecnico, on_delete=models.CASCADE)
     def __str__(self):
         fila = str( self.fch)
