@@ -37,7 +37,15 @@ def inicio(request):
     return render(request, 'index.html')
 
 def inicio_2(request):
-    return render(request, 'base.html')
+    pcs = Computadora.objects.count()
+    correo = Soporte_Correos.objects.count()
+    equip_perso = Equip_Pers.objects.count()
+    context = {
+        'Computadora': pcs,
+        'Correos' : correo,
+        'EquiposPersonales' : equip_perso
+        }
+    return render(request, 'base.html', context)
 
 def requerimientos(request):
     Req = Requerimientos.objects.all()

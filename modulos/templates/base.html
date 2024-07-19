@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="{% static 'lib/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
   <link rel="stylesheet" href="{% static 'lib/adminlte/css/adminlte.min.css' %}">
   <link rel="stylesheet" href="{% static 'lib/adminlte/icon/bootstrap-icons.css' %}">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 </head>
 <style>
 
@@ -23,8 +24,75 @@
 
     <div class="content-wrapper">
       {% block 'contenido' %}
-      {% endblock %}
+      <br>
+      <section class="content">
+        <div class="container-fluid">
+          <!-- Small boxes (Stat box) -->
+          <div class="row">
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3>{{Computadora}}</h3>
+                  <p>Computadoras</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-icon ion-monitor"></ion-icon></i>
+                </div>
+                <a href="#" class="small-box-footer">Informacion <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h3>{{Correos}}<sup style="font-size: 20px"></sup></h3>
+  
+                  <p>Soportes de Correo</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-icon ion-email"></i>
+                </div>
+                <a href="#" class="small-box-footer">Informacion <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-warning">
+                <div class="inner">
+                  <h3>{{EquiposPersonales}}</h3>
+  
+                  <p>Equipos Personales</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-icon ion-laptop"></i>
+                </div>
+                <a href="#" class="small-box-footer">Informacion<i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-danger">
+                <div class="inner">
+                  <h3>QAP</h3>
+  
+                  <p>Pendiente</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+          </div>
 
+        </div><!-- /.container-fluid -->
+      </section>
+      {% endblock %}
     </div>
 
     {% include 'footer.html' %}
