@@ -138,8 +138,6 @@ class tp_manto_pc(models.Model):
         fila = str(self.descrip_corta)
         return fila
 
-
-
 class titulo_tecnico(models.Model):
     id = models.AutoField(primary_key=True)
     descrip_corta = models.TextField()    
@@ -224,4 +222,5 @@ class Diagnostico_tecnico(models.Model):
     tecnico = models.ForeignKey(tecnico, on_delete=models.CASCADE)
     def __str__(self):
         fila = str( self.fch)
-        return fila 
+        return fila
+

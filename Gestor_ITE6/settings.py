@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'Gestor_ITE6.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'Gestor_IT',
+        'NAME': 'Gestor_ITv2',
         'USER': 'sa',
         'PASSWORD': 'T3cn0l0g1@13',
         'HOST': '172.22.4.16',

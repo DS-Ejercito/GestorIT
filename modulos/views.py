@@ -322,13 +322,3 @@ def sop_equip_pers_create_bd(request):
         tecnico = tecnico.objects.get(id=request.POST['tecnico']))
     Equip_Pers_c.save()
     return redirect('sop_equip_pers_r')
-
-def Prog_Ins_PC(request, id):
-    PCs = Computadora.objects.get(id=id)
-    Prog_Ins = Manto_Computadora.objects.all()
-    context = {
-        'PC': PCs,
-        'TP_Manto_PC' : tp_manto_pcs,
-        'Manto_PC' : Mantos
-    }
-    return render(request, 'Manto/Manto_PC.html', context)
