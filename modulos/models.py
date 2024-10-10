@@ -208,7 +208,7 @@ class Manto_Computadora(models.Model):
     id_Computadora = models.ForeignKey(Computadora, on_delete=models.CASCADE)
     tp_manto_pc = models.ForeignKey(tp_manto_pc, on_delete=models.CASCADE)
     obs = models.TextField(blank=True, null=True)
-    tecnico = models.ForeignKey(tecnico, on_delete=models.CASCADE)
+    cod_tecnico = models.ForeignKey(tecnico, on_delete=models.CASCADE, null=True)
     def __str__(self):
         fila = str( self.obs)
         return fila  
@@ -219,8 +219,44 @@ class Diagnostico_tecnico(models.Model):
     id_Computadora = models.ForeignKey(Computadora, on_delete=models.CASCADE)
     fallas = models.TextField(blank=True, null=True)
     recomendaciones = models.TextField(blank=True, null=True)
-    tecnico = models.ForeignKey(tecnico, on_delete=models.CASCADE)
+    cod_tecnico = models.ForeignKey(tecnico, on_delete=models.CASCADE, null=True)
     def __str__(self):
         fila = str( self.fch)
         return fila
 
+
+class marca_imp(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.TextField()    
+    def __str__(self):
+        fila =  str(self.descrip_corta)
+        return fila
+
+class modelo_imp(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.TextField()
+    marca = models.ForeignKey(marca_imp, on_delete=models.CASCADE, related_name='modelo_imp', null=True)    
+    def __str__(self):
+        fila =  str(self.descrip_corta)
+        return fila
+
+class tipo_imp(models.Model):
+    id = models.AutoField(primary_key=True)
+    descrip_corta = models.TextField()    
+    def __str__(self):
+        fila =  str(self.descrip_corta)
+        return fila
+
+    
+class impresora(models.Model):
+    id = models.AutoField(primary_key=True)
+    serie = models.TextField()
+    responsable = models.TextField()
+    tp_imp = models.ForeignKey(tipo_imp, on_delete=models.CASCADE)
+    modelo = models.ForeignKey(modelo_imp, on_delete=models.CASCADE)
+    marca = models.ForeignKey(marca_imp, on_delete=models.CASCADE)
+    ubicacion = models.ForeignKey(procedencia, on_delete=models.CASCADE)
+    estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
+    def __str__(self):
+        fila =  str(self.serie)
+        return fila

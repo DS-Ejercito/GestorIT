@@ -1,13 +1,6 @@
 from django.contrib import admin
-from .models import Requerimientos, procedencia, estado_req, categoria_req, tipo_requerimiento
-# Inventeraio de Equipo.
-from .models import Computadora, Marca, Estado, Mem_Ram, Sis_Oper, Almac, Office, tp_pc, tp_manto_pc, Manto_Computadora, Diagnostico_tecnico
-from .models import Requerimientos, procedencia, estado_req, categoria_req, tipo_requerimiento, Soporte_Correos, tipo_soporte_correos, titulo_tecnico, tecnico
-# Soporte Equipos Personales a la Red.
-from .models import Equip_Pers
-#Instalacion de Programas
-from .models import programa
-from .models import Prog_Inst_PC
+from .models import *
+
 
 # Register your models here.
 admin.site.register(Requerimientos)
@@ -37,3 +30,9 @@ admin.site.register(Prog_Inst_PC)
 admin.site.register(programa)
 # Soporte Equipos Personales a la Red.
 admin.site.register(Equip_Pers)
+
+#Impresoras
+admin.site.register(impresora)
+admin.site.register(tipo_imp)
+admin.site.register(modelo_imp)
+admin.site.register(marca_imp)

@@ -81,6 +81,18 @@
               </div>
               <br>
               <div class="row">
+                <label for="Tipo_PC" class=" col-2 col-form-label">Técnico</label>
+                <div class="col-12">
+                  <select class="form-control" id="tecnico" name="tecnico" required>
+                    <option value=""> Seleccione</option>
+                    {% for tecnico in tecnico %}
+                    <option value="{{ tecnico.id }}">{{tecnico.descrip_corta}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <br>
+              <div class="row">
                 <div class="col-12">
                   <div class="form-group">
                     <label for="obs">Observaciones</label>

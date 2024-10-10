@@ -1,20 +1,14 @@
 # Create your views here.
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Requerimientos, estado_req, tipo_requerimiento, procedencia, categoria_req 
-#Inventario de Computadoras
-from .models import Computadora, Marca, Estado, Mem_Ram, Sis_Oper, Almac, Office, tp_pc, Manto_Computadora, tp_manto_pc, Diagnostico_tecnico
-#Inventario de Soporte Correo
-from .models import Soporte_Correos, tipo_soporte_correos, tecnico, titulo_tecnico  
-#Inventario de Computadoras
-from .models import Equip_Pers
-#Instalacion de Programas
-from .models import programa
-from .models import Prog_Inst_PC
+from django.http import JsonResponse
+from .models import *
 #Generar QR
 import qrcode
 from io import BytesIO
 import base64
+import pandas as pd
+from django.db.models import F
 
 estados_req = estado_req.objects.all()
 tipos_requerimiento = tipo_requerimiento.objects.all()
@@ -28,6 +22,9 @@ Almacs = Almac.objects.all()
 Offices = Office.objects.all()
 tp_pcs = tp_pc.objects.all()
 tp_manto_pcs = tp_manto_pc.objects.all()
+list_modelo_imp = modelo_imp.objects.all()
+list_marca_imp = marca_imp.objects.all()
+list_tipo_imp = tipo_imp.objects.all()
 
 tecnicos = tecnico.objects.all()
 titulo_tecnico = titulo_tecnico.objects.all()
@@ -228,6 +225,7 @@ def Manto_PC(request, id):
     PCs = Computadora.objects.get(id=id)
     Mantos = Manto_Computadora.objects.all()
     context = {
+        'tecnico': tecnicos,
         'PC': PCs,
         'TP_Manto_PC' : tp_manto_pcs,
         'Manto_PC' : Mantos
@@ -239,24 +237,45 @@ def Manto_PC_create_bd(request, id):
         fch = request.POST['fch'] ,
         id_Computadora = Computadora.objects.get(id=id),
         tp_manto_pc = tp_manto_pc.objects.get(id=request.POST['tp_manto_pc']),
+        cod_tecnico = tecnico.objects.get(id=request.POST['tecnico']),
         obs = request.POST['obs']
     )
     Manto_PC.save()
     PCs = Computadora.objects.get(id=id)
     Mantos = Manto_Computadora.objects.all()
     context = {
+        'tecnico': tecnicos,
         'PC': PCs,
         'TP_Manto_PC' : tp_manto_pcs,
         'Manto_PC' : Mantos
     }
     return render(request, 'Manto/Manto_PC.html', context)
-    
+  
+def Diag_PC_create_bd(request, id):
+    Diagn_Tec_PC = Diagnostico_tecnico(
+        fch = request.POST['fch'] ,
+        id_Computadora = Computadora.objects.get(id=id),
+        fallas = request.POST['fallas'],
+        recomendaciones = request.POST['recomendaciones'],
+        cod_tecnico = tecnico.objects.get(id=request.POST['tecnico']),
+    )
+    Diagn_Tec_PC.save()
+    PCs = Computadora.objects.get(id=id)
+    Diagn_Tec = Diagnostico_tecnico.objects.all()
+    context = {
+        'tecnico': tecnicos,
+        'PC': PCs,
+        'Diagn_Tec' : Diagn_Tec
+    }
+    return render(request, 'Manto/Diagn_Tec.html', context)  
+
 def Manto_delete_bd(request, id, id2):
     Mant_PC = Manto_Computadora.objects.get(id=id)
     Mant_PC.delete()
     PCs = Computadora.objects.get(id=id2)
     Mantos = Manto_Computadora.objects.all()
     context = {
+        'tecnico': tecnicos,
         'PC': PCs,
         'TP_Manto_PC' : tp_manto_pcs,
         'Manto_PC' : Mantos
@@ -267,6 +286,7 @@ def Diagn_Tec(request, id):
     PCs = Computadora.objects.get(id=id)
     Diagn_Tec = Diagnostico_tecnico.objects.all()
     context = {
+        'tecnico': tecnicos,
         'PC': PCs,
         'Diagn_Tec' : Diagn_Tec
     }
@@ -322,3 +342,44 @@ def sop_equip_pers_create_bd(request):
         tecnico = tecnico.objects.get(id=request.POST['tecnico']))
     Equip_Pers_c.save()
     return redirect('sop_equip_pers_r')
+
+def export_to_excel(request):
+    data = Computadora.objects.all().annotate(RAM = F('Mem_Ram__descrip_corta'), Marc = F('Marca__descrip_corta'),SO = F('Sis_Oper__descrip_corta'), Almace = F('Almac__descrip_corta'), Ubi = F('cod_proc__descrip_corta'), Offi = F('Office__descrip_corta')).values('Ubi', 'Marc', 'modelo', 'SO', 'RAM', 'procesador', 'Almace', 'modelo', 'Offi', 'Usuario_AD')
+    df = pd.DataFrame(data)
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=my_model_data.xlsx'
+    with pd.ExcelWriter(response, engine='openpyxl') as writer:
+        df.to_excel(writer, index=False, sheet_name='Sheet1')
+    return response
+
+def load_modelos(request):
+    marca_id = request.GET.get('marca_id')  # Obtener la ID de la marca desde la solicitud Ajax
+    modelos = modelo_imp.objects.filter(marca_id=marca_id).order_by('descrip_corta')  # Filtrar modelos por marca
+    return JsonResponse(list(modelos.values('id', 'descrip_corta')), safe=False)  # Devolver la lista de modelos
+
+def Inv_imp(request):
+    Inv_imp = impresora.objects.all()
+    return render(request, 'Inventario/Inv_imp_gen.html', {'Inv_imp'  : Inv_imp })
+
+def Inv_imp_create(request):
+    
+    context = {
+        'estado': Estados,
+        'modelo': list_modelo_imp,
+        'marca': list_marca_imp,
+        'ubicacion': procedencias,
+        'tipo_imp': list_tipo_imp      
+    }
+    return render(request, 'Inventario/Inv_imp_create.html', context)
+
+def Inv_imp_bd(request):
+    Impresora = impresora(
+        serie = request.POST['numero_serie'] ,
+        responsable = request.POST['Usuario_AD'] ,
+        tp_imp = tipo_imp.objects.get(id=request.POST['Tipo_Imp']),
+        modelo = modelo_imp.objects.get(id=request.POST['modelo']), 
+        marca = marca_imp.objects.get(id=request.POST['Marca']),
+        ubicacion = procedencia.objects.get(id=request.POST['cod_proc']),
+        estado = Estado.objects.get(id=request.POST['Estado']))
+    Impresora.save()
+    return redirect('Inv_imp')

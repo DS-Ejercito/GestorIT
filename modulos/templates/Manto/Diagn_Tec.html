@@ -35,7 +35,7 @@
 </section>
 <section class="content">
   <div class="container-fluid">
-    <form action="/Manto_PC_create_bd/{{PC.id}}" enctype="multipart/form-data" method="post">
+    <form action="/Diag_PC_create_bd/{{PC.id}}" enctype="multipart/form-data" method="post">
       {% csrf_token %}
       <div class="row">
         <div class="col-12">
@@ -62,6 +62,22 @@
                 <div class="col-4">
                   <input type="text" class="form-control" id="Nom_Equipo_AD" name="Nom_Equipo_AD"
                     placeholder="Nombre del Equipo" maxlength="100" value="{{PC.Nom_Equipo_AD}}" readonly>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <label for="Marca" class="col-2 col-form-label">Tecnico.</label>
+                <div class="col-4">
+                  <select class="form-control" id="tecnico" name="tecnico" required>
+                    <option value=""> Seleccione</option>
+                    {% for tecnico in tecnico %}
+                    <option value="{{ tecnico.id }}">{{tecnico.descrip_corta}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <label for="Marca" class="col-2 col-form-label">Fecha de Diagn.</label>
+                <div class="col-4">
+                  <input type="date" class="form-control" id="fch" name="fch" required>
                 </div>
               </div>
               <br>
