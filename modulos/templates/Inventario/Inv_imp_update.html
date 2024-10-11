@@ -8,7 +8,7 @@
 </section>
 <section class="content">
   <div class="container-fluid">
-    <form action="/Inv_imp_bd/" enctype="multipart/form-data" method="post">
+    <form action="/Inv_update_imp_bd/{{Imp.id}}" enctype="multipart/form-data" method="post">
       {% csrf_token %}
       <div class="row">
         <div class="col-12">
@@ -29,14 +29,17 @@
                 <label for="numero_serie" class="col-2 col-form-label">Número de Serie</label>
                 <div class="col-4">
                   <input type="text" class="form-control" id="numero_serie" name="numero_serie" maxlength="100"
-                    placeholder="Num. de Serie." required>
+                    placeholder="Num. de Serie." value="{{Imp.serie}}"  readonly required>
                 </div>
                 <label for="Marca" class="col-2 col-form-label">Marca</label>
                 <div class="col-4">
                   <select class="form-control" id="Marca" name="Marca" required>
-                    <option value="">Seleccione...</option>
                     {% for marca in marca %}
+                    {% if marca.id == Imp.marca.id %}
+                    <option value="{{ marca.id }}" selected>{{marca.descrip_corta}}</option>
+                    {% else %}
                     <option value="{{ marca.id }}">{{marca.descrip_corta}}</option>
+                    {% endif %}
                     {% endfor %}
                   </select>
                 </div>
@@ -47,14 +50,26 @@
                 <div class="col-4">
                   <select class="form-control" id="modelo" name="modelo" required>
                     <option value="">Seleccione...</option>
+                    {% for modelo in modelo %}
+                    {% if modelo.id == Imp.modelo.id and Imp.modelo.marca.id == modelo.marca.id%}
+                      {% if modelo.id == Imp.modelo.id  %}
+                        <option value="{{ modelo.id }}" selected>{{modelo.descrip_corta}}</option>
+                      {% else %}
+                        <option value="{{ modelo.id }}">{{modelo.descrip_corta}}</option>
+                      {% endif %}
+                    {% endif %}
+                    {% endfor %}
                   </select>
                 </div>
                 <label for="Tipo_PC" class=" col-2 col-form-label">Tipo de Impresora</label>
                 <div class="col-4">
                   <select class="form-control" id="Tipo_imp" name="Tipo_Imp" required>
-                    <option value="">Seleccione...</option>
                     {% for tipo_imp in tipo_imp %}
+                    {% if tipo_imp.id == Imp.tipo_imp.id %}
+                    <option value="{{ tipo_imp.id }}" selected>{{tipo_imp.descrip_corta}}</option>
+                    {% else %}
                     <option value="{{ tipo_imp.id }}">{{tipo_imp.descrip_corta}}</option>
+                    {% endif %}
                     {% endfor %}
                   </select>
                 </div>
@@ -64,14 +79,18 @@
                 <label for="Usuario_AD" class="col-2 col-form-label">Usuario AD</label>
                 <div class="col-4">
                   <input type="text" class="form-control" id="Usuario_AD" name="Usuario_AD" maxlength="100"
-                    placeholder="Usuario de AD" required>
+                    placeholder="Usuario de AD" value="{{Imp.responsable}}" required>
                 </div>
                 <label for="Estado" class="col-2 col-form-label">Estado</label>
                 <div class="col-4">
                   <select class="form-control" id="Estado" name="Estado" required>
                     <option value="">Seleccione...</option>
                     {% for estado in estado %}
+                    {% if estado.id == Imp.estado.id %}
+                    <option value="{{ estado.id }}" selected>{{estado.descrip_corta}}</option>
+                    {% else %}
                     <option value="{{ estado.id }}">{{estado.descrip_corta}}</option>
+                    {% endif %}
                     {% endfor %}
                   </select>
                 </div>
@@ -83,7 +102,11 @@
                   <select class="form-control" id="cod_proc" name="cod_proc" required>
                     <option value="">Seleccione...</option>
                     {% for ubicacion in ubicacion %}
+                    {% if ubicacion.id == Imp.ubicacion.id %}
+                    <option value="{{ ubicacion.id }}" selected>{{ubicacion.descrip_corta}}</option>
+                    {% else %}
                     <option value="{{ ubicacion.id }}">{{ubicacion.descrip_corta}}</option>
+                    {% endif %}
                     {% endfor %}
                   </select>
                 </div>
@@ -94,7 +117,7 @@
                   <div class="form-group">
                     <label for="observaciones">Observaciones</label>
                     <textarea class="form-control" id="observaciones" name="observaciones" rows="2"
-                      placeholder="Observaciones" required></textarea>
+                      placeholder="Observaciones" required>{{Imp.obs}}</textarea>
                   </div>
                 </div>
               </div>

@@ -380,6 +380,37 @@ def Inv_imp_bd(request):
         modelo = modelo_imp.objects.get(id=request.POST['modelo']), 
         marca = marca_imp.objects.get(id=request.POST['Marca']),
         ubicacion = procedencia.objects.get(id=request.POST['cod_proc']),
-        estado = Estado.objects.get(id=request.POST['Estado']))
+        estado = Estado.objects.get(id=request.POST['Estado']),
+        obs = request.POST['observaciones']) 
     Impresora.save()
+    return redirect('Inv_imp')
+
+def Inv_imp_update(request, id):
+    Imp = impresora.objects.get(id=id)
+    context = {
+        'estado': Estados,
+        'modelo': list_modelo_imp,
+        'marca': list_marca_imp,
+        'ubicacion': procedencias,
+        'tipo_imp': list_tipo_imp,
+        'Imp': Imp
+        }
+    return render(request, 'Inventario/Inv_imp_update.html', context)
+
+def Inv_update_imp_bd(request, id):
+    Imp = get_object_or_404(impresora, id = id)
+    Imp.serie = request.POST['numero_serie'] 
+    Imp.responsable = request.POST['Usuario_AD']
+    Imp.tp_imp = tipo_imp.objects.get(id=request.POST['Tipo_Imp'])
+    Imp.modelo = modelo_imp.objects.get(id=request.POST['modelo'])
+    Imp.marca = marca_imp.objects.get(id=request.POST['Marca'])
+    Imp.ubicacion = procedencia.objects.get(id=request.POST['cod_proc'])
+    Imp.estado = Estado.objects.get(id=request.POST['Estado'])
+    Imp.obs = request.POST['observaciones'] 
+    Imp.save()
+    return redirect('Inv_imp')
+
+def delete_Imp(request, id):
+    Inv_imp = impresora.objects.get(id=id)
+    Inv_imp.delete()
     return redirect('Inv_imp')

@@ -257,6 +257,7 @@ class impresora(models.Model):
     marca = models.ForeignKey(marca_imp, on_delete=models.CASCADE)
     ubicacion = models.ForeignKey(procedencia, on_delete=models.CASCADE)
     estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
+    obs = models.TextField( null=True)
     def __str__(self):
         fila =  str(self.serie)
         return fila
