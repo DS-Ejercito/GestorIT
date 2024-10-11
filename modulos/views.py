@@ -37,10 +37,12 @@ def inicio_2(request):
     pcs = Computadora.objects.count()
     correo = Soporte_Correos.objects.count()
     equip_perso = Equip_Pers.objects.count()
+    impresoras = impresora.objects.count()
     context = {
         'Computadora': pcs,
         'Correos' : correo,
-        'EquiposPersonales' : equip_perso
+        'EquiposPersonales' : equip_perso,
+        'Impresoras' : impresoras
         }
     return render(request, 'base.html', context)
 
